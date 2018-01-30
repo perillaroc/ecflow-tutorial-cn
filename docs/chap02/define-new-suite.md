@@ -36,6 +36,33 @@ endsuite
 创建一个 python 文件，例如命名为 test.py:
 
 ```py
+import os
+from ecflow import Defs, Suite, Task, Edit
+
+print("Creating suite definition")
+home = os.path.join(os.getenv("HOME"), "course")
+defs = Defs(
+    Suite('test',
+          Edit(ECF_HOME=home),
+          Task('t1')))
+print(defs)
+```
+
+运行脚本
+
+```
+$ python test.py 
+Creating suite definition
+# 4.8.0
+suite test
+  edit ECF_HOME '/g1/u/wangdp/course'
+  task t1
+endsuite
+```
+
+附：下面时 2017 版的 suite 定义脚本，可以看到更新后的 ecflow 提供更简洁的 suite 定义方式。
+
+```py
 #!/usr/bin/env python2.7
 import os
 import ecflow 
@@ -47,33 +74,7 @@ suite.add_variable("ECF_HOME", os.path.join(os.getenv("HOME"),  "course"))
 suite.add_task("t1")
 ```
 
-运行脚本
-
-```
-$ python test.py 
-Creating suite definition
-```
-
 接下来的所有 Python 例子都应该用这种方式运行。
-
-## Emos方法
-
-> 译者注：本方法未经测试
-
-```python
-#!/usr/bin/env python2.7
-import os
-import sys
-sys.path.append('/home/ma/emos/def/o/def')
-from ecf import *
-   
-print "Creating suite definition"   
-defs = Defs().add(
-Suite("test").add(
-Variable("ECF_HOME", os.path.join(os.getenv("HOME"),  "course")),
-Task("t1"), ))
-print defs
-```
 
 ## 任务
 
