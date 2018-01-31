@@ -10,7 +10,7 @@
     * [加载文件](chap02/load-file.md)
     * [启动suite](chap02/start-suite.md)
     * [检查结果](chap02/check-result.md)
-    * [使用ecFlowview](chap02/use-ecflowview.md)
+    * [使用ecflow_ui](chap02/use-ecflow_ui.md)
 * [3.进一步](chap03/README.md)
     * [添加另一个任务](chap03/add-another-task.md)
     * [添加说明](chap03/add-manual.md)
