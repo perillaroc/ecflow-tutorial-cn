@@ -11,6 +11,7 @@
     * [启动suite](chap02/start-suite.md)
     * [检查结果](chap02/check-result.md)
     * [使用ecflow_ui](chap02/use-ecflow_ui.md)
+    * 【执行、重新执行、重新排队】(chap02/execute-rerun-requeue.md)
 * [3.进一步](chap03/README.md)
     * [添加另一个任务](chap03/add-another-task.md)
     * [添加说明](chap03/add-manual.md)
