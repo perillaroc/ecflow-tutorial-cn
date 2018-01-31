@@ -1,11 +1,13 @@
 # 使用ecFlowview
 
-我们看下 ecFlow 的 GUI —— ecFlowview，命令行下输入 ecflowview
+> 译者注：ecFlow 已开发基于 Qt 的新版 GUI —— ecflow_ui，功能更强大。
+
+我们看下 ecFlow 的 旧版 GUI —— ecFlowview，命令行下输入 `ecflowview`。
 
 程序运行后：
 
-* 从 Edit 菜单中选择 Preference
-* 接下来点击 Servers 标签，输入 ecflow 服务器的详细信息。为 ecflow 服务器取个名字，添加Host和Port号，点击添加按钮
+- 从 Edit 菜单中选择 Preference
+- 接下来点击 Servers 标签，输入 ecflow 服务器的详细信息。为 ecflow 服务器取个名字，添加 Host 和 Port，点击添加按钮。
 
 ![](./asset/ecflowview-preferences-servers.jpg)
 
