@@ -7,7 +7,7 @@
 下面的例子中，也可将变量定义在 [suite](https://software.ecmwf.int/wiki/display/ECFLOW/Glossary#term-suite) 层，得到相同的结果。
 
 变量从父节点继承。子节点（[node](https://software.ecmwf.int/wiki/display/ECFLOW/Glossary#term-node)）可以重新定义变量，这种情况下使用新的变量值。
-生成的变量（generated variables）也可以重新定义，但不推荐这么做，除非你很清楚可能出现的后果。
+**生成的变量**（generated variables）也可以重新定义，但不推荐这么做，除非你很清楚可能出现的后果。
 
 ## Suite Definition
 
@@ -16,8 +16,8 @@
 ```bash
 # Definition of the suite test.
 suite test
-   edit ECF_INCLUDE "$HOME/course"   # replace '$HOME' with the path to your home directory
-   edit ECF_HOME    "$HOME/course"
+   edit ECF_INCLUDE "$ECF_HOME"   # replace '$ECF_HOME' with the path to your ECF_HOME directory
+   edit ECF_HOME    "$ECF_HOME"
    family f1
       edit SLEEP 20
       task t1
@@ -28,50 +28,60 @@ endsuite
 
 ### Python
 
-```python
-#!/usr/bin/env python2.7
+```py
 import os
-import ecflow  
+from pathlib import Path
+from ecflow import Defs, Suite, Task, Family, Edit
+
 
 def create_family_f1():
-    f1 = ecflow.Family("f1" )
-    f1.add_variable("SLEEP", 20)
-    f1.add_task("t1")
-    f1.add_task("t2")
-    return f1         
-      
-print "Creating suite definition"   
-defs = ecflow.Defs()
-suite = defs.add_suite("test")
-suite.add_variable("ECF_INCLUDE", os.path.join(os.getenv("HOME"), "course"))
-suite.add_variable("ECF_HOME",    os.path.join(os.getenv("HOME"), "course"))
+    return Family(
+        "f1",
+        Edit(SLEEP=20),
+        Task("t1"),
+        Task("t2"))
 
-suite.add_family( create_family_f1() )
-print defs
 
-print "Checking job creation: .ecf -> .job0"   
-print defs.check_job_creation()
+print("Creating suite definition")
+home = os.path.abspath(Path(Path(__file__).parent, "../../../build/course"))
+defs = Defs(
+    Suite('test',
+          Edit(ECF_INCLUDE=home, ECF_HOME=home),
+          create_family_f1()))
+print(defs)
 
-print "Saving definition to file 'test.def'"
-defs.save_as_defs("test.def")
+print("Checking job creation: .ecf -> .job0")
+print(defs.check_job_creation())
+
+print("Saving definition to file 'test.def'")
+defs.save_as_defs(str(Path(home, "test.def")))
+
+# To restore the definition from file 'test.def' we can use:
+# restored_defs = ecflow.Defs("test.def")
 ```
 
 生成的 def 文件
 
-```bash
-# 4.0.9
+```
+$python test.py
+Creating suite definition
+# 4.8.0
 suite test
-edit ECF_HOME '/home/windroc/course'
-edit ECF_INCLUDE '/home/windroc/course'
-family f1
-edit SLEEP '20'
-task t1
-task t2
-endfamily
+  edit ECF_INCLUDE '/g3/wangdp/project/study/ecflow/ecflow-tutorial-code/build/course'
+  edit ECF_HOME '/g3/wangdp/project/study/ecflow/ecflow-tutorial-code/build/course'
+  family f1
+    edit SLEEP '20'
+    task t1
+    task t2
+  endfamily
 endsuite
+
+Checking job creation: .ecf -> .job0
+
+Saving definition to file 'test.def'
 ```
 
-![](./asset/variable-inheritance-suite.jpg)
+![](./asset/variable_inheritance.png)
 
 ## 测试
 
@@ -119,3 +129,9 @@ endsuite
 | /test/f2/g2/x2 | 100 |
 
 ![](./asset/variable-inheritance-test.jpg)
+
+## 任务
+
+1. 修改
+2. 替换 suite
+3. 在 ecflow_ui 中查看修改后的 suite test
