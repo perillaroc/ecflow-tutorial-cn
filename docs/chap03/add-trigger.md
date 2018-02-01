@@ -7,7 +7,7 @@ Trigger 用来声明两个任务间的依赖关系（[dependencies](https://soft
 当 ecFlow 尝试启动一个任务时，它会检查 trigger 表达式。如果条件满足，任务启动，相反任务保持 [queued](https://software.ecmwf.int/wiki/display/ECFLOW/Glossary#term-queued) 状态。
 Trigger 可以用在任务间、family 间或者两者的混合。
 
-记住下面两条规则
+记住下面两条规则：
 
 * 所有任务都完成时，family 才完成
 * 任务的 trigger 和所有父节点的 trigger 都满足时，任务才会启动。
@@ -31,7 +31,7 @@ Trigger 可以非常复杂，ecFlow 支持所有的条件语句（not、and、or
 例如 [event](https://software.ecmwf.int/wiki/display/ECFLOW/Glossary#term-event), 
 [meter](https://software.ecmwf.int/wiki/display/ECFLOW/Glossary#term-meter), 
 [variable](https://software.ecmwf.int/wiki/display/ECFLOW/Glossary#term-variable), 
-[repeat](https://software.ecmwf.int/wiki/display/ECFLOW/Glossary#term-repeat) 和生成变量。
+[repeat](https://software.ecmwf.int/wiki/display/ECFLOW/Glossary#term-repeat)，limits 和生成变量。
 
 ## Suite Definition
 
@@ -40,8 +40,8 @@ Trigger 可以非常复杂，ecFlow 支持所有的条件语句（not、and、or
 ```bash
 # Definition of the suite test.
 suite test
-   edit ECF_INCLUDE "$HOME/course"   # replace '$HOME' with the path to your home directory
-   edit ECF_HOME    "$HOME/course"
+   edit ECF_INCLUDE "$ECF_HOME"   # replace '$ECF_HOME' with the path to your ECF_HOME directory
+   edit ECF_HOME    "$ECF_HOME"
    family f1
      edit SLEEP 20
      task t1
@@ -54,55 +54,72 @@ endsuite
 ### Python
 
 ```python
-#!/usr/bin/env python2.7
 import os
-import ecflow
+from pathlib import Path
+from ecflow import Defs, Suite, Task, Family, Edit, Trigger
+
 
 def create_family_f1():
-    f1 = ecflow.Family("f1" )
-    f1.add_variable("SLEEP", 20)
-    f1.add_task("t1")
-    f1.add_task("t2").add_trigger("t1 == complete")
-    return f1
+    return Family(
+        "f1",
+        Edit(SLEEP=20),
+        Task("t1"),
+        Task("t2", Trigger("t1 == complete")))
 
-print "Creating suite definition"
-defs = ecflow.Defs()
-suite = defs.add_suite("test")
-suite.add_variable("ECF_INCLUDE", os.path.join(os.getenv("HOME"), "course"))
-suite.add_variable("ECF_HOME",    os.path.join(os.getenv("HOME"), "course"))
 
-suite.add_family( create_family_f1() )
-print defs
+print("Creating suite definition")
+home = os.path.abspath(Path(Path(__file__).parent, "../../../build/course"))
+defs = Defs(
+    Suite('test',
+          Edit(ECF_INCLUDE=home, ECF_HOME=home),
+          create_family_f1()))
+print(defs)
 
-print "Checking job creation: .ecf -> .job0"   
-print defs.check_job_creation()
+print("Checking job creation: .ecf -> .job0")
+print(defs.check_job_creation())
 
-print "Checking trigger expressions"
-print defs.check()
+print("Saving definition to file 'test.def'")
+defs.save_as_defs(str(Path(home, "test.def")))
 
-print "Saving definition to file 'test.def'"
-defs.save_as_defs("test.def")
+# To restore the definition from file 'test.def' we can use:
+# restored_defs = ecflow.Defs("test.def")
 ```
 
-![](./asset/add-trigger.jpg)
+运行脚本：
+
+```
+$python test.py
+Creating suite definition
+# 4.8.0
+suite test
+  edit ECF_INCLUDE '/g3/wangdp/project/study/ecflow/ecflow-tutorial-code/build/course'
+  edit ECF_HOME '/g3/wangdp/project/study/ecflow/ecflow-tutorial-code/build/course'
+  family f1
+    edit SLEEP '20'
+    task t1
+    task t2
+      trigger t1 == complete
+  endfamily
+endsuite
+
+Checking job creation: .ecf -> .job0
+
+Saving definition to file 'test.def'
+```
+
+![](./asset/add_trigger.png)
 
 ## 任务
 
 1. 编辑 [suite definition](https://software.ecmwf.int/wiki/display/ECFLOW/Glossary#term-suite-definition)，添加 trigger
 2. 替换 [suite](https://software.ecmwf.int/wiki/display/ECFLOW/Glossary#term-suite)
-3. 在 [ecflowview](https://software.ecmwf.int/wiki/display/ECFLOW/Glossary#term-ecflowview) 观察任务。
-4. 在ecflowview中查看 t1 和 t2 的 trigger。
+3. 在 ecflow_ui 中观察任务。
+4. 在 trigger 标签中查看 t1 和 t2 的 trigger。
 
-![](./asset/trigger-page.jpg)
+![](./asset/add_trigger_t1.png)
 
-5. 点击箭头，查看trigger 的关系。
+![](./asset/add_trigger_t2.png)
 
-![](./asset/trigger-details.jpg)
+5. 搜索t1
 
-6. 使用 Show 菜单设置在 ecflowview 主窗口中显示 trigger
-
-![](./asset/show-menu-trigger.jpg)
-
-7. 搜索t1
-
-![](./asset/search-trigger.jpg)
+![](./asset/add_trigger_search_t1.png)
