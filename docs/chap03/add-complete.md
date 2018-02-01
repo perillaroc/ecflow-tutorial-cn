@@ -22,86 +22,113 @@ complete 可以用于 [task](https://software.ecmwf.int/wiki/display/ECFLOW/Glos
 ```bash
 # Definition of the suite test.
 suite test
-edit ECF_INCLUDE "$HOME/course" # replace '$HOME' with the path to your home directory
-edit ECF_HOME "$HOME/course"
-family f1
-edit SLEEP 20
-task t1
-task t2
-trigger t1 eq complete
-event a
-event b
-task t3
-trigger t2:a
-task t4
-trigger t2 eq complete
-complete t2:b
-endfamily
+   edit ECF_INCLUDE "$ECF_HOME"   # replace '$ECF_HOME' with the path to your ECF_HOME directory
+   edit ECF_HOME    "$ECF_HOME"
+   family f1
+     edit SLEEP 20
+     task t1
+     task t2
+         trigger t1 eq complete   # task t2 will only start when task t1 is complete
+         event a                  # task t2 will set an event a
+         event b                  # task t2 will set an event b
+     task t3
+         trigger t2:a             # task t3 will start when event a is set in task t2
+     task t4
+         trigger t2 eq complete   # task t4 will start when task t2 is complete
+         complete t2:b            # task t4 will complete if event b is set in task t2
+   endfamily
 endsuite
 ```
 
 ### Python
 
-```python
-#!/usr/bin/env python2.7
+```py
 import os
-import ecflow 
+from pathlib import Path
+from ecflow import Defs, Suite, Task, Family, Edit, Trigger, Event, Complete
+
 
 def create_family_f1():
-    f1 = ecflow.Family("f1")
-    f1.add_variable("SLEEP", 20)
-    f1.add_task("t1")
-    t2 = f1.add_task("t2")  
-    t2.add_trigger("t1 eq complete") 
-    t2.add_event("a")
-    t2.add_event("b")
-    f1.add_task("t3").add_trigger("t2:a")  
-    t4 = f1.add_task("t4")
-    t4.add_trigger("t2 eq complete")  
-    t4.add_complete("t2:b")  
-    return f1
-      
-print "Creating suite definition"   
-defs = ecflow.Defs()
-suite = defs.add_suite("test")
-suite.add_variable("ECF_INCLUDE", os.path.join(os.getenv("HOME"),  "course"))
-suite.add_variable("ECF_HOME",    os.path.join(os.getenv("HOME"),  "course"))
+    return Family(
+        "f1",
+        Edit(SLEEP=20),
+        Task("t1"),
+        Task(
+            "t2",
+            Trigger("t1 == complete"),
+            Event('a'),
+            Event('b')),
+        Task(
+            "t3",
+            Trigger("t2:a")),
+        Task(
+            "t4",
+            Trigger("t2 == complete"),
+            Complete("t2:b"))
+    )
 
-suite.add_family( create_family_f1() )
-print defs
 
-print "Checking job creation: .ecf -> .job0"   
-print defs.check_job_creation()
+print("Creating suite definition")
+home = os.path.abspath(Path(Path(__file__).parent, "../../../build/course"))
+defs = Defs(
+    Suite('test',
+          Edit(ECF_INCLUDE=home, ECF_HOME=home),
+          create_family_f1()))
+print(defs)
 
-print "Checking trigger expressions"
-print defs.check()
+print("Checking job creation: .ecf -> .job0")
+print(defs.check_job_creation())
 
-print "Saving definition to file 'test.def'"
-defs.save_as_defs("test.def")
+print("Saving definition to file 'test.def'")
+defs.save_as_defs(str(Path(home, "test.def")))
+
+# To restore the definition from file 'test.def' we can use:
+# restored_defs = ecflow.Defs("test.def")
+
 ```
-![](./asset/task-after-complete.jpg)
+
+运行脚本：
+
+```
+$python test.py
+Creating suite definition
+# 4.8.0
+suite test
+  edit ECF_INCLUDE '/g3/wangdp/project/study/ecflow/ecflow-tutorial-code/build/course'
+  edit ECF_HOME '/g3/wangdp/project/study/ecflow/ecflow-tutorial-code/build/course'
+  family f1
+    edit SLEEP '20'
+    task t1
+    task t2
+      trigger t1 == complete
+      event a
+      event b
+    task t3
+      trigger t2:a
+    task t4
+      complete t2:b
+      trigger t2 == complete
+  endfamily
+endsuite
+
+Checking job creation: .ecf -> .job0
+
+Saving definition to file 'test.def'
+```
+
+![](./asset/add_complete.png)
 
 ## 任务
 
 
-1. 更新 test.def 或 test.py，为 t4 添加 complete 表达式
+1. 更新 `test.def` 或 `test.py`，为 t4 添加 complete 表达式
 2. 替换 [suite](https://software.ecmwf.int/wiki/display/ECFLOW/Glossary#term-suite)
-3. 查看 [ecflowview](https://software.ecmwf.int/wiki/display/ECFLOW/Glossary#term-ecflowview)
-
-![](./asset/ecflowview-after-complete-added.jpg)
-
+3. 查看 ecflow_ui
 4. 查看 t4 的触发器
+5. 注意表示 task 未运行的图标
 
-![](./asset/add-complete-t4-trigger.jpg)
+![](./asset/add_complete_t4.png)
 
-5. 点击箭头查看触发器关系
+6. 可以修改 task t2，检查事件未激活时 task t4 是否运行。注释 t2 脚本中 event b 的语句。
 
-![](./asset/add-complete-t4-detail-1.jpg)
-
-![](./asset/add-complete-t4-detail-2.jpg)
-
-6. 使用 Show 菜单，查看树中的触发器
-7. 注意表示 task 未运行的图标
-8. 可以修改 task t2，检查事件未激活时 task t4 是否运行。
-
-![](./asset/add-complete-check-t4.jpg)
+![](./asset/add_complete_t4_run.png)
