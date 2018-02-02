@@ -37,6 +37,6 @@
     * [使用Python脚本](chap04/use-python-script.md)
         * [缩进](chap04/indentation.md)
         * [面向对象suite](chap04/object-oriented-suites.md)
-    * [Zombie](chap04/zombie.md)
+    * [Zombie介绍](chap04/zombie.md)
 * [5.练习](chap05/README.md)
     * [数据获取](chap05/data-acquisition.md)
