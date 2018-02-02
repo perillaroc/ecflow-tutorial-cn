@@ -30,6 +30,7 @@
     * [Repeat](chap04/repeat.md)
     * [Limit](chap04/limit.md)
     * [Late属性](chap04/late-attribute.md)
+    * [Alias](chap04/alias.md)
     * [运行远程作业](chap04/run-remote-job.md)
     * [文件位置](chap04/file-location.md)
     * [日期和时钟](chap04/date-and-clock.md)
