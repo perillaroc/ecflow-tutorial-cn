@@ -33,6 +33,7 @@
     * [Alias](chap04/alias.md)
     * [运行远程作业](chap04/run-remote-job.md)
     * [文件位置](chap04/file-location.md)
+    * [服务安全 - 白名单文件](chap04/server_security.md)
     * [日期和时钟](chap04/date-and-clock.md)
     * [使用Python脚本](chap04/use-python-script.md)
     * [面向对象suite](chap04/object-oriented-suites.md)
