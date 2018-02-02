@@ -3,7 +3,7 @@
 * [1.介绍](chap01/README.md)
 * [2.开始使用](chap02/README.md)
     * [定义新的suite](chap02/define-new-suite.md)
-    * [理解头文件](chap02/understand-inlcudes.md)
+    * [理解头文件](chap02/understand-includes.md)
     * [定义第一个task](chap02/define-first-task.md)
     * [检查job生成](chap02/check-job-creation.md)
     * [理解客户端](chap02/understand-client.md)
