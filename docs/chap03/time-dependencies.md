@@ -9,9 +9,9 @@ ecFlow 支持 [date](https://software.ecmwf.int/wiki/display/ECFLOW/Glossary#ter
 ### 时间
 
 * 绝对时间：在确定时间点运行
-* 相对时间： 相对于 suite 的启动时间
+* 相对时间：相对于 suite 的启动时间
 
-时间依赖可以按常规间隔重复。一旦所有时间点都运行结束，节点变为 complete 状态
+时间依赖可以按规则间隔重复。一旦所有时间点都运行结束，节点变为 complete 状态
 
 ```bash
 time 23:00                  # at next 23:00
@@ -41,42 +41,54 @@ Cron 依赖使用 [cron](https://software.ecmwf.int/wiki/display/ECFLOW/Glossary
 cron 使用 real time clock 而不是 hybrid clock
 
 ```bash
-cron 23:00                  # every day at 23:00
-cron 08:00 12:00 01:00      # every hour between 8 and 12
-cron -w 0,2                 # every sunday and tuesday
-cron -d 1,15                # every 1st and 15th of each month
-cron -m 1 -d 1              # every first of January
+cron 23:00                 # every day at 23:00
+cron 08:00 12:00 01:00     # every hour between 8 and 12
+cron -w 0,2    11:00       # every sunday and tuesday at 11 am
+cron -d 1,15   02:00       # every 1st and 15th of each month at 2 am
+cron -m 1 -d 1 14:00       # every first of January at 2 pm
 ```
+
+> Time, Today, Cron<br/>
+  当 time 过期后，对应的节点可以随意运行，time 仍然保持过期，直到节点被重新排队。
 
 ## 依赖设置
 
 每个任务可以有多个时间和日期依赖：
 
 ```bash
-day sunday
-day wednesday
-date 01.*.*                 # The first of every month and year
-date 10.*.*                 # The tenth of every month and year
-time 01:00
-time 16:00
+task tt
+   day monday   # Here Day/date acts like a guard over the time. i.e time is not considered until Monday
+   time 10:00   # run on Monday at 10 am
+```
+
+```bash
+task tt
+   day sunday                  # On the same node, Day/date act like a guard over the time attributes.
+   day wednesday
+   date 01.*.*                 # The first of every month and year
+   date 10.*.*                 # The tenth of every month and year
+   time 01:00                  # The time is only set free *if* we are on one of the day/dates
+   time 16:00
 ```
 
 上面的任务将在周日和周三的上午1点、下午4点运行，并且当天是每月的1号或10号。
 
+> 同一个节点设置多个时间依赖时，相同类型的依赖是**或**关系，不同类型的依赖是**和**关系。
+
 类似 trigger，date 和 time 依赖可以设置在 family 层。这种情况下，该 family 下的 task 将根据这些依赖关系运行。
 
-注意：所有时间相关的依赖关系（例如 cron，time，[today](https://software.ecmwf.int/wiki/display/ECFLOW/Glossary#term-today)，date 和 day）
+> 注意：所有时间相关的依赖关系（例如 cron，time，[today](https://software.ecmwf.int/wiki/display/ECFLOW/Glossary#term-today)，date 和 day）
 都相对于 suite 的时钟（[clock](https://software.ecmwf.int/wiki/display/ECFLOW/Glossary#term-clock)）。更多信息请查看《Dates and Clocks》。
 
-#### 文本方式
+### 文本方式
 
 让我们修改 definition 文件，添加一个 family f2。为了简便，下面的代码中省略前面的 family f1。
 
 ```bash
 # Definition of the suite test
 suite test
- edit ECF_INCLUDE "$HOME/course"  # replace '$HOME' with the path to your home directory
- edit ECF_HOME    "$HOME/course"
+ edit ECF_INCLUDE "$ECF_HOME"  # replace '$ECF_HOME' with the path to your ECF_HOME directory
+ edit ECF_HOME    "$ECF_HOME"
  
  family f2
      edit SLEEP 20
@@ -95,83 +107,66 @@ suite test
 endsuite
 ```
 
-#### Python
+### Python
 
 省略 family f1 部分代码。
 
 ```python
-#!/usr/bin/env python2.7
 import os
-import ecflow  
+from pathlib import Path
+from ecflow import Defs, Suite, Task, Family, Edit, Trigger, Event, Complete, Meter, Time, Day, Date
 
-def create_family_f2():
-    f2 = ecflow.Family("f2")
-    f2.add_variable("SLEEP", 20)
-    f2.add_task("t1").add_time( "00:30 23:30 00:30" ) # start(hh:mm) end(hh:mm) increment(hh:mm)
-    f2.add_task("t2").add_day( "sunday" )
-   
-    # for add_date(): day,month,year; here 0 means every month, and every year
-    t3 = f2.add_task("t3")
-    t3.add_date(1, 0, 0)           # day month year, first of every month or every year
-    t3.add_time( 12, 0 )           # hour, minutes at 12 o'clock
-   
-    f2.add_task("t4").add_time( 0, 2, True ) # hour, minutes, relative to suite start
-                                             # 2 minutes after family f2 start
-    f2.add_task("t5").add_time( 0, 2 )       # hour, minutes suite site
-                                             # 2 minutes past midnight
-    return f2
-            
-print "Creating suite definition"   
-defs = ecflow.Defs()
-suite = defs.add_suite("test")
-suite.add_variable("ECF_INCLUDE", os.path.join(os.getenv("HOME"),  "course"))
-suite.add_variable("ECF_HOME",    os.path.join(os.getenv("HOME"),  "course"))
 
-suite.add_family( create_family_f1() )
-suite.add_family( create_family_f2() )
-print defs
+def create_family_f1():
+    return Family(
+        "f1",
+        Edit(SLEEP=20),
+        Task("t1",
+             Time("03:00 23:00 00:30")),
+        Task("t2",
+             Day("sunday")),
+        Task("t3",
+             Date("1.*.*"),
+             Time("12:00")
+             ),
+        Task("t4",
+             Time("+00:02")),
+        Task("t5",
+             Time("00:02"))
+    )
 
-print "Checking job creation: .ecf -> .job0"   
-print defs.check_job_creation()
 
-print "Checking trigger expressions"
-print defs.check()
+print("Creating suite definition")
+home = os.path.abspath(Path(Path(__file__).parent, "../../../build/course"))
+defs = Defs(
+    Suite('test',
+          Edit(ECF_INCLUDE=home, ECF_HOME=home),
+          create_family_f1()))
+print(defs)
 
-print "Saving definition to file 'test.def'"
-defs.save_as_defs("test.def")
+print("Checking job creation: .ecf -> .job0")
+print(defs.check_job_creation())
+
+print("Saving definition to file 'test.def'")
+defs.save_as_defs(str(Path(home, "test.def")))
+
+# To restore the definition from file 'test.def' we can use:
+# restored_defs = ecflow.Defs("test.def")
 ```
 
-生成的 def 文件
+运行脚本：
 
-```bash
-# 4.0.9
+```
+$python test.py
+Creating suite definition
+# 4.8.0
 suite test
-  edit ECF_HOME '/home/windroc/course'
-  edit ECF_INCLUDE '/home/windroc/course'
+  edit ECF_INCLUDE '/g3/wangdp/project/study/ecflow/ecflow-tutorial-code/build/course'
+  edit ECF_HOME '/g3/wangdp/project/study/ecflow/ecflow-tutorial-code/build/course'
   family f1
     edit SLEEP '20'
     task t1
-      meter progress 1 100 90
-    task t2
-      trigger t1 == complete
-      event a
-      event b
-    task t3
-      trigger t2:a
-    task t4
-      complete t2:b
-      trigger t2 eq complete
-    task t5
-      trigger t1:progress ge 30
-    task t6
-      trigger t1:progress ge 60
-    task t7
-      trigger t1:progress ge 90
-  endfamily
-  family f2
-    edit SLEEP '20'
-    task t1
-      time 03:00 23:30 00:30
+      time 03:00 23:00 00:30
     task t2
       day sunday
     task t3
@@ -183,18 +178,22 @@ suite test
       time 00:02
   endfamily
 endsuite
+
+Checking job creation: .ecf -> .job0
+
+Saving definition to file 'test.def'
 ```
 
 ## 任务
 
 1. 修改 suite definition 文件
 
-2. 拷贝 /test/f1/t7 创建所有需要的 ecf script
+2. 拷贝 `/test/f1/t7` 创建所有需要的 ecf script
 
 3. 加载并启动 suite
 
-![](./asset/time-dep-suite.jpg)
+![](./asset/add_time_dependencies.png)
 
-4. ecflowview 有个独立的窗口解释为啥某个任务处于 [queued](https://software.ecmwf.int/wiki/display/ECFLOW/Glossary#term-queued) 状态。选择一个 queued 任务，点击问号按钮
+4. ecflow_ui 有个独立的窗口解释为啥某个任务处于 [queued](https://software.ecmwf.int/wiki/display/ECFLOW/Glossary#term-queued) 状态。选择一个 queued 任务，点击问号按钮
 
-![](./asset/time-dep-why.jpg)
+![](./asset/add_time_dependencies_why.png)
