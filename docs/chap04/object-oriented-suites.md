@@ -3,7 +3,7 @@
 Python 的面向对象设计特性允许我们在设计和构建 [suite definition](https://software.ecmwf.int/wiki/display/ECFLOW/Glossary#term-suite-definition) 时考虑灵活性。
 设计每个 suite 有不同的准则。让我们考虑如何以一种更面向对象的方式设计本教程的例子。我们以一些设计准则开始。
 
-* 默认变量必须设置，并与 suite 独立
+* 默认变量（例如 `ECF_HOME` 等）必须设置，并与 suite 独立
 * 新的 suite 必须开启自动检测 job 生成。
 * 需要将 definition 保存到单独的文件。
 * 新的 suite 应该能够复用为上面要求而设计的代码
@@ -11,7 +11,6 @@ Python 的面向对象设计特性允许我们在设计和构建 [suite definiti
 下面是一种可行的设计，使用单例模式和模板模式。
 
 ```python
-#!/usr/bin/env python2.7
 import os
 import ecflow  
 
