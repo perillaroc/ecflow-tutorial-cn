@@ -7,7 +7,7 @@
 
 - `-s submitted`：节点可能保持在 `submitted` 状态的时间（格式:`[+]hh:mm`）。sumitted 总是相对的，所以 `+` 被忽略。如果节点在 `submitted` 状态超过给定时间，`late` 标志则会被设置。
 - `-a Active`：节点必须启动（状态为 `active`）的时间（格式：`hh:mm`）。如果节点还处于 `queued` 或 `submitted` 状态，则会设置 `late` 标志。
-- `-c Complete`：节点必须完成（状态为 `complete`）的时间（格式：`{+}hh:mm）。如果是相对时间，时间从节点开始运行后计算，否则节点必须在给定时间点时完成。
+- `-c Complete`：节点必须完成（状态为 `complete`）的时间（格式：`{+}hh:mm`）。如果是相对时间，时间从节点开始运行后计算，否则节点必须在给定时间点时完成。
 
 示例
 
@@ -57,59 +57,7 @@ from ecflow import Defs, Suite, Task, Family, Edit, Trigger, \
     RepeatString, RepeatInteger, RepeatDate, Limit, InLimit, \
     Late
 
-
-def create_family_f1():
-    return Family(
-        "f1",
-        Edit(SLEEP=20),
-        Task("t1",
-             Time("03:00 23:00 00:30")),
-        Task("t2",
-             Day("sunday")),
-        Task("t3",
-             Date("1.*.*"),
-             Time("12:00")
-             ),
-        Task("t4",
-             Time("+00:02")),
-        Task("t5",
-             Time("00:02"))
-    )
-
-
-def create_family_house_keeping():
-    return Family("house_keeping",
-                  Task("clear_log",
-                       Cron("22:30", days_of_week=[0])))
-
-
-def create_family_f3():
-    return Family("f3",
-                  Task("t1",
-                       Label("info", "")))
-
-
-def create_family_f4():
-    return Family("f4",
-                  Edit(SLEEP=2),
-                  RepeatString("NAME", ["a", "b", "c", "d", "e", "f"]),
-                  Family("f5",
-                         RepeatInteger("VALUE", 1, 10),
-                         Task("t1",
-                              RepeatDate("DATE", 20101230, 20110105),
-                              Label("info", ""),
-                              Label("date", "")
-                              )
-                         )
-                  )
-
-
-def create_family_f5():
-    return Family("f5",
-                  InLimit("l1"),
-                  Edit(SLEEP=20),
-                  [Task('t{}'.format(i)) for i in range(1, 10)])
-
+# ...skip...
 
 def create_family_f6():
     return Family("f6",
@@ -171,4 +119,4 @@ Saving definition to file 'test.def'
 2. 替换 suite 定义
 3. 运行 suite，在 ecflow_ui 中应该可以看到 task 的 late 标签。
 
-![](./asset/add_late.png)
+    ![](./asset/add_late.png)

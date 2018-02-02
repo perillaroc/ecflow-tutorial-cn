@@ -32,7 +32,7 @@ sleep %SLEEP%
 
 ### Text
 
-定义语法：
+`repeat` 定义语法：
 
 ```bash
 repeat  ::=  "repeat" >> repeat_type >> +nextline
@@ -78,35 +78,7 @@ from ecflow import Defs, Suite, Task, Family, Edit, Trigger, \
     RepeatString, RepeatInteger, RepeatDate
 
 
-def create_family_f1():
-    return Family(
-        "f1",
-        Edit(SLEEP=20),
-        Task("t1",
-             Time("03:00 23:00 00:30")),
-        Task("t2",
-             Day("sunday")),
-        Task("t3",
-             Date("1.*.*"),
-             Time("12:00")
-             ),
-        Task("t4",
-             Time("+00:02")),
-        Task("t5",
-             Time("00:02"))
-    )
-
-
-def create_family_house_keeping():
-    return Family("house_keeping",
-                  Task("clear_log",
-                       Cron("22:30", days_of_week=[0])))
-
-
-def create_family_f3():
-    return Family("f3",
-                  Task("t1",
-                       Label("info", "")))
+# ... skip ...
 
 
 def create_family_f4():
@@ -147,11 +119,9 @@ defs.save_as_defs(str(Path(home, "test.def")))
 
 注意下面的对应关系
 
-文本：ecflow.RepeatString
-
-整数：ecflow.RepeatInteger
-
-日期：ecflow.RepeatDate
+- 文本：`ecflow.RepeatString`
+- 整数：`ecflow.RepeatInteger`
+- 日期：`ecflow.RepeatDate`
 
 运行脚本：
 
@@ -162,28 +132,7 @@ Creating suite definition
 suite test
   edit ECF_INCLUDE '/g3/wangdp/project/study/ecflow/ecflow-tutorial-code/build/course'
   edit ECF_HOME '/g3/wangdp/project/study/ecflow/ecflow-tutorial-code/build/course'
-  family f1
-    edit SLEEP '20'
-    task t1
-      time 03:00 23:00 00:30
-    task t2
-      day sunday
-    task t3
-      time 12:00
-      date 1.*.*
-    task t4
-      time +00:02
-    task t5
-      time 00:02
-  endfamily
-  family house_keeping
-    task clear_log
-      cron -w 0 22:30
-  endfamily
-  family f3
-    task t1
-      label info ""
-  endfamily
+  # ... skip ...
   family f4
     repeat string NAME "a" "b" "c" "d" "e" "f"
     edit SLEEP '2'
@@ -287,11 +236,11 @@ rep = RepeatString("COLOR", [ 'red', 'green', 'blue' ] )
 1. 完成修改
 2. 替换 suite definition
 
-![](./asset/repeat_view.pngs)
+    ![](./asset/repeat_view.png)
 
 3. `/test/f4/f5/t1` 将会运行多少次？
 4. 尝试在 ecflow_ui 中修改某个 repeat 的值。
 
-![](./asset/repeat_edit.png)
+    ![](./asset/repeat_edit.png)
 
-![](./asset/repeat_edit_run.png)
+    ![](./asset/repeat_edit_run.png)

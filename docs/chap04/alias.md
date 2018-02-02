@@ -18,20 +18,20 @@ Alias 可以用与运行之前某个日期的任务，或者解决诸如磁盘�
 
 3. 选择 'Submit as alias'，然后提交作业。
 
-![](./asset/alias_submit.png)
+    ![](./asset/alias_submit.png)
 
-注意到一个新节点（alias）被添加为 task 的子节点。
+    注意到一个新节点（alias）被添加为 task 的子节点。
 
-![])./asset/alias_run.png)
+    ![](./asset/alias_run.png)
 
 4. 选择同一个任务，重复上述过程。这将表明一个 task 可以有多个 alias。并且每个 alias 编辑过的脚本均被保留。
 
-![](./asset/alias_more.png)
+    ![](./asset/alias_more.png)
 
 5. 选择一个 alias，强制设为 aborted 状态。右键选择 Force -> Aborted。注意 alias 节点的状态没有传递给父节点。
 
-![](./asset/alias_aborted.png)
+    ![](./asset/alias_aborted.png)
 
 6. 最后在树视图中选择 alias，右键点击，选择 Remove，alias 节点将从树中移除。
 
-![](./asset/alias_remove.png)
+    ![](./asset/alias_remove.png)

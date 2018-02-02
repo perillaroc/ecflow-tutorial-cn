@@ -46,6 +46,7 @@ endsuite
 
 ### Python
 
+省略部分代码
 
 ```py
 import os
@@ -53,25 +54,7 @@ from pathlib import Path
 from ecflow import Defs, Suite, Task, Family, Edit, Trigger, \
     Event, Complete, Meter, Time, Day, Date, Cron
 
-
-def create_family_f1():
-    return Family(
-        "f1",
-        Edit(SLEEP=20),
-        Task("t1",
-             Time("03:00 23:00 00:30")),
-        Task("t2",
-             Day("sunday")),
-        Task("t3",
-             Date("1.*.*"),
-             Time("12:00")
-             ),
-        Task("t4",
-             Time("+00:02")),
-        Task("t5",
-             Time("00:02"))
-    )
-
+# ... skip ...
 
 def create_family_house_keeping():
     return Family("house_keeping",
@@ -107,20 +90,7 @@ Creating suite definition
 suite test
   edit ECF_INCLUDE '/g3/wangdp/project/study/ecflow/ecflow-tutorial-code/build/course'
   edit ECF_HOME '/g3/wangdp/project/study/ecflow/ecflow-tutorial-code/build/course'
-  family f1
-    edit SLEEP '20'
-    task t1
-      time 03:00 23:00 00:30
-    task t2
-      day sunday
-    task t3
-      time 12:00
-      date 1.*.*
-    task t4
-      time +00:02
-    task t5
-      time 00:02
-  endfamily
+  # ... skip ...
   family house_keeping
     task clear_log
       cron -w 0 22:30
@@ -139,22 +109,21 @@ Saving definition to file 'test.def'
 3. 替换 suite。
 4. ecflow_ui 有专门的窗口解释任务为何处于排队状态。选择排队的任务，点击问号图标按钮或点击 Why 标签。
 
-![](./asset/add_cron_why.png)
+    ![](./asset/add_cron_why.png)
 
 5. 手动运行任务，查看磁盘上的日志文件。
 
-日志文件被清空：
+    日志文件被清空：
 
-```
-MSG:[01:26:04 2.2.2018] chd:complete /test/house_keeping/clear_log
-LOG:[01:26:04 2.2.2018]  complete: /test/house_keeping/clear_log
-LOG:[01:26:04 2.2.2018]  queued: /test/house_keeping/clear_log
-LOG:[01:26:04 2.2.2018]  queued: /test/house_keeping
-LOG:[01:26:04 2.2.2018]  queued: /test
-LOG:[01:26:04 2.2.2018]  queued: /
-MSG:[01:26:07 2.2.2018] --news=0 187 16  :wangdp [server(202,16) : *Small* scale changes :NEWS]
-MSG:[01:26:07 2.2.2018] --sync=0 187 16  :wangdp
-MSG:[01:26:09 2.2.2018] --news=0 202 16  :wangdp [:NO_NEWS]
-MSG:[01:26:26 2.2.2018] svr:check_pt in 0 seconds
-```
-
+    ```
+    MSG:[01:26:04 2.2.2018] chd:complete /test/house_keeping/clear_log
+    LOG:[01:26:04 2.2.2018]  complete: /test/house_keeping/clear_log
+    LOG:[01:26:04 2.2.2018]  queued: /test/house_keeping/clear_log
+    LOG:[01:26:04 2.2.2018]  queued: /test/house_keeping
+    LOG:[01:26:04 2.2.2018]  queued: /test
+    LOG:[01:26:04 2.2.2018]  queued: /
+    MSG:[01:26:07 2.2.2018] --news=0 187 16  :wangdp [server(202,16) : *Small* scale changes :NEWS]
+    MSG:[01:26:07 2.2.2018] --sync=0 187 16  :wangdp
+    MSG:[01:26:09 2.2.2018] --news=0 202 16  :wangdp [:NO_NEWS]
+    MSG:[01:26:26 2.2.2018] svr:check_pt in 0 seconds
+    ```

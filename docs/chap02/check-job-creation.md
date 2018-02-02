@@ -1,6 +1,6 @@
 # 检查job生成
 
-前面章节我们已经实现第一个 task（t1.ecf 文件）。t1.ecf 脚本需要经过预处理生成 jobs file。这个过程由 `ecflow_server` 在将要运行 task 时自动完成。
+前面章节我们已经实现第一个 task（`t1.ecf` 文件）。`t1.ecf` 脚本需要经过预处理生成 jobs file。这个过程由 `ecflow_server` 在将要运行 task 时自动完成。
 
 我们还可以在 suite definition 加载到 `ecflow_server` 前检查 job creation。
 
@@ -25,7 +25,7 @@
 2. job 文件扩展名为 `.job0`，服务器生成的 job 文件扩展名为 `.job<1-n>`，[ECF_TRYNO](https://software.ecmwf.int/wiki/display/ECFLOW/Glossary#term-ecf-tryno)将不为0.
 3. 默认 job 文件将在 ecf 脚本同样目录下生成，请查看词汇表 [ECF_JOB](https://software.ecmwf.int/wiki/display/ECFLOW/Glossary#term-ecf-job)。
 
-使用 [ecflow.Defs.check_job_creation](https://software.ecmwf.int/wiki/display/ECFLOW/ecFlow+Python+Api#ecflow.Defs.check_job_creation) 进行检查，修改 test.py
+使用 [ecflow.Defs.check_job_creation](https://software.ecmwf.int/wiki/display/ECFLOW/ecFlow+Python+Api#ecflow.Defs.check_job_creation) 进行检查，修改 `test.py`
 
 ```py
 import os
@@ -108,10 +108,11 @@ ecflow_client --complete  # Notify ecFlow of a normal end
 trap 0                    # Remove all traps
 exit 0                    # End the shell
 ```
-强烈建议随后的例子中使用 job creation 检查脚本。
+
+> 强烈建议随后的例子中使用 job creation 检查脚本。
 
 ## 任务
 
 1. 添加 job creation 检查
 
-2. 查看job文件 $HOME/course/test/t1.job0
+2. 查看job文件 `$ECF_HOME/test/t1.job0`

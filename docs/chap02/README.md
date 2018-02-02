@@ -6,14 +6,14 @@
 
 ```
 $cd $WORKDIR
-$mkdir -P ecf_home
+$mkdir -p ecf_home
 $cd ecf_home
 ```
 
 ## 共享环境
 
 共享环境中多个用户和多个 ecFlow 服务器可以同时存在，通过使用启动脚本 `ecflow_start.sh` 实现。
-该脚本会使用由用户ID唯一确定的端口号在你的系统中启动 `ecflow_server` 服务进程。
+该脚本会使用由用户 ID 唯一确定的端口号在你的系统中启动 `ecflow_server` 服务进程。
 脚本默认在 `$HOME/ecflow_server` 目录中创建 ecFlow 的日志和 [check point](https://software.ecmwf.int/wiki/display/ECFLOW/Glossary#term-check-point) 文件。
 可以使用 -d 选项改变日志和归档点文件的位置，例如将这些文件放到课程目录里：
 
@@ -77,10 +77,6 @@ ecflow_server
 
 将会在系统中以默认的名字 `localhost` 和默认的端口号 `3141` 启动 `ecflow_server`。
 
-```
-$ecflow_server
-```
-
 ## 前台运行
 
 > 本节由译者添加
@@ -131,9 +127,9 @@ ubuntu.3141.ecf.check ubuntu.3141.ecf.log ubuntu.3500.ecf.log
 2. 创建 `$WORKDIR/ecf_home` 目录
 3. 使用如下命令启动服务
 
-```bash
-ecflow_start.sh -d $WORKDIR/ecf_home
-```
+    ```bash
+    ecflow_start.sh -d $WORKDIR/ecf_home
+    ```
 
 4. 注意 `ECF_NODE` 和 `ECF_PORT` 变量
 5. 注意：如果下面的章节中需要启动一个新的 shell 来访问服务，需要手动指定 host 和 port，如果已设置环境变量 `ECF_PORT` 和 `ECF_HOST`，则可以直接调用命令。

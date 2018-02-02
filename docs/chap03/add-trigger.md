@@ -18,16 +18,16 @@ Trigger 可以用在任务间、family 间或者两者的混合。
 
 trigger 中的表达式可以以使用节点的全名，例如
 
-* /test/f1/t1 表示 [task](https://software.ecmwf.int/wiki/display/ECFLOW/Glossary#term-task) t1
-* /test/f1 表示 [family](https://software.ecmwf.int/wiki/display/ECFLOW/Glossary#term-family) f1
+* `/test/f1/t1` 表示 [task](https://software.ecmwf.int/wiki/display/ECFLOW/Glossary#term-task) t1
+* `/test/f1` 表示 [family](https://software.ecmwf.int/wiki/display/ECFLOW/Glossary#term-family) f1
 
 ```bash
 trigger /test/f1/t1 == complete
 ```
 
-一些情况下，ecFlow 接受相对名称，例如../t1
+一些情况下，ecFlow 接受相对名称，例如 `../t1`
 
-Trigger 可以非常复杂，ecFlow 支持所有的条件语句（not、and、or 等等），并且 trigger 可以引用节点属性，
+Trigger 可以非常复杂，ecFlow 支持所有的条件语句（`not`、`and`、`or` 等等），并且 trigger 可以引用节点属性，
 例如 [event](https://software.ecmwf.int/wiki/display/ECFLOW/Glossary#term-event), 
 [meter](https://software.ecmwf.int/wiki/display/ECFLOW/Glossary#term-meter), 
 [variable](https://software.ecmwf.int/wiki/display/ECFLOW/Glossary#term-variable), 
@@ -114,12 +114,12 @@ Saving definition to file 'test.def'
 1. 编辑 [suite definition](https://software.ecmwf.int/wiki/display/ECFLOW/Glossary#term-suite-definition)，添加 trigger
 2. 替换 [suite](https://software.ecmwf.int/wiki/display/ECFLOW/Glossary#term-suite)
 3. 在 ecflow_ui 中观察任务。
-4. 在 trigger 标签中查看 t1 和 t2 的 trigger。
+4. 在 trigger 标签中查看 `t1` 和 `t2` 的 trigger。
 
-![](./asset/add_trigger_t1.png)
+  ![](./asset/add_trigger_t1.png)
 
-![](./asset/add_trigger_t2.png)
+  ![](./asset/add_trigger_t2.png)
 
-5. 搜索t1
+5. 搜索 `t1`
 
-![](./asset/add_trigger_search_t1.png)
+  ![](./asset/add_trigger_search_t1.png)

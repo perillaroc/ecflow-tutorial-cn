@@ -94,7 +94,7 @@ with ecflow.Defs() as defs:
     defs.save_as_defs("test.def")
 ```
 
-另外一种方式是使用 ecf.py，但没找到这个脚本。
+另一种实现方式：
 
 ```python
 from ecflow import Defs,Suite,Family,Task,Edit,Trigger,Complete,Event,Meter,Time,Day,Date

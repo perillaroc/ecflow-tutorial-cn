@@ -69,7 +69,7 @@ trap '{ echo "Killed by a signal"; ERROR ; }' 1 2 3 4 5 6 7 8 10 12 13 15
 
 ## tail.h
 
-放在 ecf script 文件结尾，通知服务器任务已经完成，使用 child command 中的 complete 命令。
+放在 ecf script 文件结尾，通知服务器任务已经完成，使用 child command 中的 `complete` 命令。
 
 ```bash
 wait                      # wait for background process to stop
@@ -78,15 +78,13 @@ trap 0                    # Remove all traps
 exit 0                    # End the shell
 ```
 
-译者注：
-
-ecf script 也支持其它编程语言，保留头文件和预定义变量功能，不过需要在 def 文件中设置特殊的变量。
+> 译者注：ecf script 也支持其它编程语言，保留头文件和预定义变量功能，不过需要在 def 文件中设置特殊的变量。<br/>
 我在一篇博文中提到如何使用 python 编写 SMS 脚本，ecflow 也类似，后续博文会专门提到如何使用 python 编写 ecf script。
 
-这两个头文件主要用于与 ecflow_server 通讯，建立通讯环境，在任务开始时通知服务器任务已经开始，
+这两个头文件主要用于与 `ecflow_server` 通讯，建立通讯环境，在任务开始时通知服务器任务已经开始，
 在任务结束时通知服务器任务已经完成，在任务出错时通知服务器任务发生错误。
 可以使用其它方式实现这些基本通讯，比如使用单一的 python 脚本作为头文件。
 
 ## 任务
 
-在 `$HOME/course` 目录中创建 `head.h` 和 `tail.h` 文件。
+在 `$ECF_HOME` 目录中创建 `head.h` 和 `tail.h` 文件。

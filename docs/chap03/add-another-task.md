@@ -18,7 +18,7 @@
 
 恢复 suite
 
-![](./asset/ecflowui_resume_suite.jpg)
+![](./asset/ecflowui_resume_suite.png)
 
 添加新任务 `t2` 的 def 文件
 
@@ -113,7 +113,7 @@ defs.save_as_defs(str(Path(home, "test.def")))
 
 ```
 
-删除所有的 suite，重新加载修改后的 def文件，需要修改 client.py：
+删除所有的 suite，重新加载修改后的 def文件，需要修改 `client.py`：
 
 ```py
 import os
@@ -135,7 +135,7 @@ except RuntimeError as e:
 我们还可以替换全部或部分 suite。
 
 另外，我们不希望 suite 立即运行，可以通过 ecflowview 挂起整个 suite，不过我们每次都需要记得这样做。
-为了方便，可以使用 Python Client API 挂起 suite。修改上面的 client.py
+为了方便，可以使用 Python Client API 挂起 suite。修改上面的 `client.py`：
 
 ```py
 import os

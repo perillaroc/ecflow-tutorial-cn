@@ -1,32 +1,32 @@
 # 加载文件
 
 下一步就是让 `ecflow_server` 知道你的 suite，或者称为加载 suite definition 文件。
-这一步将检查 test.def 文件，并向 `ecflow_server` 描述 suite。可以通过多种方法实现，取决于 suite 的创建方式。
+这一步将检查 `test.def` 文件，并向 `ecflow_server` 描述 suite。可以通过多种方法实现，取决于 suite 的创建方式。
 
 注意：从下面的两种方法中选择一种方法，避免两次加载 suite definition 时会出现的错误。
 
 ## 文本
 
-在 course 目录执行下面的命令
+在 `ECF_HOME` 目录执行下面的命令
 
-```bash
-$ ecflow_client --load=test.def --port=33083
+```
+$ecflow_client --load=test.def --port=33083
 ```
 
-这将检查并加载 suite definition 到 ecflow_server。如果检查失败，suite 不会被加载。
+这将检查并加载 suite definition 到 `ecflow_server`。如果检查失败，suite 不会被加载。
 之前的章节中提到过 `ecflow_client`，该命令被用在 `head.h` 和 `tail.h` 头文件中。
 
-注：请确保已经设置 `ECF_PORT` 环境变量，否则需要在命令行中使用 `-–port`
+注：请确保已经设置 `ECF_HOST` 和 `ECF_PORT` 环境变量，否则需要在命令行中使用 `--host` 和 `-–port` 参数。
 
 加载 suite 后的 ecflowview
 
 ![](./asset/ecflowview-after-suite-loaded.jpg)
 
-译者注：
+**译者注：**
 
 为了测试另一种方式，需要删除 ecflow 服务中的 suite，使用 `ecflow_client --delete` 命令：
 
-```text
+```
 $ecflow_client --host=login05 --port=33083 --delete=/test
 Are you sure want to delete nodes at paths:
   /test ? y
@@ -77,7 +77,7 @@ Saving definition to file 'test.def'
 
 运行上述脚本后，生成的 def 文件内容如下：
 
-```text
+```bash
 # 4.8.0
 suite test
   edit ECF_HOME 'PROJECT_ROOT/build/course'
@@ -87,9 +87,9 @@ endsuite
 
 可以使用上面的方法通过命令行接口加载 def 文件。
 
-因为 Suite Definition API 在内存中建立 definition，所以可以直接加载到 ecflow_server 中，用 `ecflow.Client` 类实现。
+因为 Suite Definition API 在内存中建立 definition，所以可以直接加载到 `ecflow_server` 中，用 `ecflow.Client` 类实现。
 
-在之前的 test.py 文件结尾添加如下代码：
+在之前的 `test.py` 文件结尾添加如下代码：
 
 ```py
 try:
@@ -133,7 +133,7 @@ $ecflow_client --begin --host=login05 --port=33083
 
 强烈建议创建 suite definition 和将它加载到服务器的过程分开。加载过程应该放到一个文件中，例如下面的 `client.py` 文件。
 
-```python
+```py
 import os
 from pathlib import Path
 import ecflow
@@ -182,7 +182,7 @@ LOG:[14:09:14 30.1.2018]  complete: /
 ## 任务
 
 1. 加载定义文件。从上述两种方法中选择一种。
-2. 如果使用python方式，检查test.def 并创建 client.py
+2. 如果使用python方式，检查 `test.def` 并创建 `client.py`
 3. 查看日志文件
 
 
@@ -196,10 +196,10 @@ ecflow_client --delete /test
 
 然后 definition 可以被重新加载。
 
-或者使用 replace 替换 suite，请查看相关帮助
+或者使用 `replace` 替换 suite，请查看相关帮助
 
 ```text
-windroc@ubuntu:~/course$ ecflow_client --help replace
+$ecflow_client --help replace
 
 replace
 -------
@@ -244,7 +244,7 @@ The client reads in the following environment variables. These are read by user 
   be done by setting ECF_NODE, ECF_PORT or by specifying --host <host> --port <int> on the command line
 ```
 
-简要说明
+**简要说明**
 
 ```bash
 # 替换整个 suite

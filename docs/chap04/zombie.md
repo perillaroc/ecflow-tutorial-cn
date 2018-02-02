@@ -94,30 +94,31 @@ MSG:[08:16:58 2.2.2018] --zombie_get :wangdp
 
 4. 试验不同的 zombie 处理方法（下面仅是展示不同的处理方法）
 
-- Terminate
+    - Terminate
 
-```bash
-$ ps aux | grep t1
-windroc   85467  0.0  0.0  11264  2836 pts/2    S    00:23   0:00 /bin/ksh /home/windroc/course/test/f1/t1.job4
-```
+    ```
+    $ps aux | grep t1
+    windroc   85467  0.0  0.0  11264  2836 pts/2    S    00:23   0:00 /bin/ksh /home/windroc/course/test/f1/t1.job4
+    ```
 
-Terminate 日志
+    Terminate 日志
 
-```bash
-MSG:[08:24:58 22.2.2016] --zombie_fail=/test/f1/t1    :windroc
-```
-Terminate 后找不到该进程
+    ```
+    MSG:[08:24:58 22.2.2016] --zombie_fail=/test/f1/t1    :windroc
+    ```
 
-- Rescue
+    Terminate 后找不到该进程
 
-```bash
-windroc   85569  0.0  0.0   4472   920 pts/2    S    00:28   0:00 sh -c /home/windroc/course/test/f1/t1.job6 1> /home/windroc/course/test/f1/t1.6 2>&1
-windroc   85570  0.0  0.0  11264  2864 pts/2    S    00:28   0:00 /bin/ksh /home/windroc/course/test/f1/t1.job6
-windroc   85586  0.0  0.0  13688  2192 pts/2    R+   00:28   0:00 grep --color=auto t1
-```
+    - Rescue
 
-日志
+    ```
+    windroc   85569  0.0  0.0   4472   920 pts/2    S    00:28   0:00 sh -c /home/windroc/course/test/f1/t1.job6 1> /home/windroc/course/test/f1/t1.6 2>&1
+    windroc   85570  0.0  0.0  11264  2864 pts/2    S    00:28   0:00 /bin/ksh /home/windroc/course/test/f1/t1.job6
+    windroc   85586  0.0  0.0  13688  2192 pts/2    R+   00:28   0:00 grep --color=auto t1
+    ```
 
-```bash
-MSG:[08:29:22 22.2.2016] --zombie_adopt=/test/f1/t1    :windroc
-```
+    日志
+
+    ```
+    MSG:[08:29:22 22.2.2016] --zombie_adopt=/test/f1/t1    :windroc
+    ```

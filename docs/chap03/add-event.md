@@ -6,7 +6,7 @@ ecFlow 引入事件 event 概念。event 是任务运行时发送给 `ecflow_ser
 
 ## Ecf Script
 
-我们将创建新的 task(t3,t4),它们被 t2 发出的事件触发。
+我们将创建新的 task（t3，t4），它们被 t2 发出的事件触发。
 通过拷贝 t1 创建 t3 和 t4 的 ecf script。
 为了通知 `ecflow_server`，task（下面示例中的 t2）必须调用 `ecflow_client --event`。
 
@@ -127,12 +127,12 @@ Saving definition to file 'test.def'
 4. 替换 suite
 5. 在 ecflow_ui 中观察任务
 
-![](./asset/add_event_replace.png)
+    ![](./asset/add_event_replace.png)
 
 6. 查看 t3 的触发器
 
-![](./asset/add_event_t2.png)
+    ![](./asset/add_event_t2.png)
 
 7. 查看 t2 的触发器
 
-![](./asset/add_event_t3.png)
+    ![](./asset/add_event_t3.png)

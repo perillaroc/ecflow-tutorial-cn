@@ -47,7 +47,7 @@
 
 下面我们将添加表格视图，在 View 菜单中选择 Add table view。
 
-![](./asset/ecflowui_treeview.png)
+![](./asset/ecflowui_tree_view.png)
 
 在树视图中选择某个节点会在表格视图中选择对应的节点。
 

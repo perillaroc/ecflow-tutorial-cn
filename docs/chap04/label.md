@@ -52,30 +52,7 @@ from ecflow import Defs, Suite, Task, Family, Edit, Trigger, \
     Event, Complete, Meter, Time, Day, Date, Cron, Label
 
 
-def create_family_f1():
-    return Family(
-        "f1",
-        Edit(SLEEP=20),
-        Task("t1",
-             Time("03:00 23:00 00:30")),
-        Task("t2",
-             Day("sunday")),
-        Task("t3",
-             Date("1.*.*"),
-             Time("12:00")
-             ),
-        Task("t4",
-             Time("+00:02")),
-        Task("t5",
-             Time("00:02"))
-    )
-
-
-def create_family_house_keeping():
-    return Family("house_keeping",
-                  Task("clear_log",
-                       Cron("22:30", days_of_week=[0])))
-
+# ... skip ...
 
 def create_family_f3():
     return Family("f3",
@@ -112,24 +89,7 @@ Creating suite definition
 suite test
   edit ECF_INCLUDE '/g3/wangdp/project/study/ecflow/ecflow-tutorial-code/build/course'
   edit ECF_HOME '/g3/wangdp/project/study/ecflow/ecflow-tutorial-code/build/course'
-  family f1
-    edit SLEEP '20'
-    task t1
-      time 03:00 23:00 00:30
-    task t2
-      day sunday
-    task t3
-      time 12:00
-      date 1.*.*
-    task t4
-      time +00:02
-    task t5
-      time 00:02
-  endfamily
-  family house_keeping
-    task clear_log
-      cron -w 0 22:30
-  endfamily
+  # ... skip ...
   family f3
     task t1
       label info ""
@@ -145,11 +105,8 @@ Saving definition to file 'test.def'
 ## 任务
 
 1. 修改 suite definition 文件或者 python 脚本
-
 2. 创建新的 ecf script 文件 `$ECF_HOME/test/f3/t1.ecf`
-
 3. 替换 suite definition
-
 4. 观察 ecflow_ui
 
-![](./asset/add_label.png)
+    ![](./asset/add_label.png)

@@ -43,7 +43,7 @@ Commands:
    zombie_fail          zombie_fob           zombie_get           zombie_kill          zombie_remove
 ```
 
-上面提到过，使用 `ecflow_client` 与服务器通讯需要设置 host 和 port，如下方法确定：
+上面提到过，使用 `ecflow_client` 与服务器通讯需要设置 `host` 和 `port`，如下方法确定：
 
 默认主机和端口为：`localhost:3141`
 

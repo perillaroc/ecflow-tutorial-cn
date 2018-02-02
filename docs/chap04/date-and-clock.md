@@ -24,13 +24,13 @@ suite 的 clock 可以修改。这对那些运行在过去日期的 suite 十分
 
 1. 尝试修改 suite，使用 `ecflow_client --alter` 用上一周的某个 clock 日期运行 suite。
 
-```
-ecflow_client --host=login05 --port=33083 --alter change clock_date 10.1.2017 /test
-```
+    ```
+    ecflow_client --host=login05 --port=33083 --alter change clock_date 10.1.2017 /test
+    ```
 
 2. 查看 ecFlow 的变量。
 
-![](./asset/date_time_change.png)
+    ![](./asset/date_time_change.png)
 
 ## 注意：
 

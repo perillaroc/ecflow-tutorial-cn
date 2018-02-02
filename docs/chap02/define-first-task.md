@@ -2,15 +2,15 @@
 
 接下来，我们需要为 task t1 编写 ecf script。
 
-默认情况下，ecFlow 认为文件放在 `ECF_HOME` 目录下的一个目录结构中，该层次结构反映 suite 的层次关系。task t1 在 suite test 中，对应的 ecf script 应该在子目录 test 下。
+默认情况下，ecFlow 认为文件放在 `ECF_HOME` 目录下的一个目录结构中，该层次结构反映 suite 的层次关系。task t1 在 suite test 中，对应的 ecf script 应该在子目录 `test` 下。
 
-在 `ECF_HOME` 下创建 test 文件夹
+在 `ECF_HOME` 下创建 `test` 文件夹
 
 ```text
 $ mkdir test
 ```
 
-在 test 中，创建 t1.ecf，文件内容为
+在 `test` 中，创建 `t1.ecf`，文件内容为
 
 ```bash
 %include "../head.h"

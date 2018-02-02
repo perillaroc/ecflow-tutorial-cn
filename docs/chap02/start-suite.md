@@ -57,7 +57,7 @@ $ecflow_client --host=login05 --port=33083 --halt
 Are you sure you want to halt the server ? y
 ```
 
-![](assert/ecflowui_start_suite_halt.png)
+![](asset/ecflowui_start_suite_halt.png)
 
 重新启动
 
@@ -73,15 +73,15 @@ $ecflow_client --host=login05 --port=33083 --begin=/test
 
 检查状态
 
-![](assert/ecflowui_start_suite_begin.png)
+![](asset/ecflowui_start_suite_begin.png)
 
 ## Python方式
 
-重新启动和开始调度 suite 可以通过 Client Server API 完成，修改 client.py 并重新运行。
+重新启动和开始调度 suite 可以通过 Client Server API 完成，修改 `client.py` 并重新运行。
 
 译者注：如果之前加载过 suite，则注释掉 `ci.load(...)` 行。
 
-```python
+```py
 import os
 from pathlib import Path
 import ecflow
@@ -116,5 +116,5 @@ Begin the suite named 'test'
 
 ## 任务
 
-1. 重新启动 ecflow_server
+1. 重新启动 `ecflow_server`
 2. 开始调度 suite

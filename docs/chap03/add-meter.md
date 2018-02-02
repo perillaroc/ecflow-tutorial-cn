@@ -8,7 +8,7 @@
 
 创建新的 task（t5，t6,和t7），当 task t1 的 meter 达到特定值时被触发。
 为了通知 [ecflow_server](https://software.ecmwf.int/wiki/display/ECFLOW/Glossary#term-ecflow-server)，
-task 必须调用 [ecflow_client](https://software.ecmwf.int/wiki/display/ECFLOW/Glossary#term-ecflow-client) --meter 命令。
+task 必须调用 `ecflow_client --meter` 命令。
 
 ### t1.ecf
 
@@ -28,7 +28,7 @@ done
 
 ## Suite definition
 
-在 suite definition 中见添加 meter。
+在 suite definition 中添加 meter。
 
 ### Text
 
@@ -154,11 +154,11 @@ Saving definition to file 'test.def'
 4. 替换 [suite](https://software.ecmwf.int/wiki/display/ECFLOW/Glossary#term-suite)
 5. 查看 ecflow_ui
 
-![](./asset/add_meter_load.png)
+    ![](./asset/add_meter_load.png)
 
 6. 在 meter progress 上右键点击，选择 Edit…
 
-![](./asset/add_meter_edit.png)
+    ![](./asset/add_meter_edit.png)
 
 7. 修改 meter 的值，点击 Apply 图标。
 

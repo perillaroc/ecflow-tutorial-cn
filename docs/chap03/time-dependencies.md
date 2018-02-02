@@ -11,7 +11,7 @@ ecFlow 支持 [date](https://software.ecmwf.int/wiki/display/ECFLOW/Glossary#ter
 * 绝对时间：在确定时间点运行
 * 相对时间：相对于 suite 的启动时间
 
-时间依赖可以按规则间隔重复。一旦所有时间点都运行结束，节点变为 complete 状态
+时间依赖可以按规则间隔重复。一旦所有时间点都运行结束，节点变为 complete 状态。
 
 ```bash
 time 23:00                  # at next 23:00
@@ -24,7 +24,8 @@ time +00:10 01:00 00:05     # 10 to 60 minutes after begin every 5 minutes
 
 ### 日期（date or day）
 
-日期依赖使用 date 或 [day](https://software.ecmwf.int/wiki/display/ECFLOW/Glossary#term-day) 指定。日期依赖都是绝对的，但可以使用通配符
+日期依赖使用 date 或 [day](https://software.ecmwf.int/wiki/display/ECFLOW/Glossary#term-day) 指定。
+日期依赖都是绝对的，但可以使用通配符。
 
 ```bash
 date 31.12.2012             # the 31st of December 2012
@@ -36,9 +37,9 @@ day monday                  # every monday
 
 ### cron
 
-Cron 依赖使用 [cron](https://software.ecmwf.int/wiki/display/ECFLOW/Glossary#term-cron) 关键字。cron 与 time 不同，设置 cron 的节点运行完成后立刻再次排队。
+Cron 依赖使用 [cron](https://software.ecmwf.int/wiki/display/ECFLOW/Glossary#term-cron) 关键字。`cron` 与 `time` 不同，设置 `cron` 的节点运行完成后立刻再次排队。
 
-cron 使用 real time clock 而不是 hybrid clock
+cron 使用 **real time clock** 而不是 **hybrid clock**
 
 ```bash
 cron 23:00                 # every day at 23:00
@@ -73,7 +74,7 @@ task tt
 
 上面的任务将在周日和周三的上午1点、下午4点运行，并且当天是每月的1号或10号。
 
-> 同一个节点设置多个时间依赖时，相同类型的依赖是**或**关系，不同类型的依赖是**和**关系。
+> 同一个节点设置多个时间依赖时，相同类型的依赖是**或**关系，不同类型的依赖是**和**关系。
 
 类似 trigger，date 和 time 依赖可以设置在 family 层。这种情况下，该 family 下的 task 将根据这些依赖关系运行。
 
@@ -117,7 +118,7 @@ from pathlib import Path
 from ecflow import Defs, Suite, Task, Family, Edit, Trigger, Event, Complete, Meter, Time, Day, Date
 
 
-def create_family_f1():
+def create_family_f2():
     return Family(
         "f1",
         Edit(SLEEP=20),
@@ -141,7 +142,7 @@ home = os.path.abspath(Path(Path(__file__).parent, "../../../build/course"))
 defs = Defs(
     Suite('test',
           Edit(ECF_INCLUDE=home, ECF_HOME=home),
-          create_family_f1()))
+          create_family_f2()))
 print(defs)
 
 print("Checking job creation: .ecf -> .job0")
@@ -163,7 +164,7 @@ Creating suite definition
 suite test
   edit ECF_INCLUDE '/g3/wangdp/project/study/ecflow/ecflow-tutorial-code/build/course'
   edit ECF_HOME '/g3/wangdp/project/study/ecflow/ecflow-tutorial-code/build/course'
-  family f1
+  family f2
     edit SLEEP '20'
     task t1
       time 03:00 23:00 00:30
@@ -192,8 +193,8 @@ Saving definition to file 'test.def'
 
 3. 加载并启动 suite
 
-![](./asset/add_time_dependencies.png)
+    ![](./asset/add_time_dependencies.png)
 
 4. ecflow_ui 有个独立的窗口解释为啥某个任务处于 [queued](https://software.ecmwf.int/wiki/display/ECFLOW/Glossary#term-queued) 状态。选择一个 queued 任务，点击问号按钮
 
-![](./asset/add_time_dependencies_why.png)
+    ![](./asset/add_time_dependencies_why.png)

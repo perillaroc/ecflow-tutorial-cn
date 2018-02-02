@@ -14,7 +14,7 @@
 ```bash
 # Definition of the suite test
 suite test
-   edit ECF_HOME "$HOME/course"  # replace '$HOME' with the path to your home directory
+   edit ECF_HOME "$ECF_HOME"  # replace '$ECF_HOME' with the path to your ECF_HOME directory
    task t1
 endsuite
 ```
@@ -27,13 +27,13 @@ endsuite
 
 1. 该行为注释。在 `#` 后到行尾之间的所有字符都会被忽略。
 2. 定义一个名为 test 的新的 suite。
-3. 定义一个 ecflow 变量（[variable](https://software.ecmwf.int/wiki/display/ECFLOW/Glossary#term-variable)），叫做 `ECF_HOME`。该变量定义定义名为 test 的 suite 可以在哪里找到所有的 unix 文件。余下的课程中，所有的文件名都相对于该目录。确保用你的 home 目录替换 $HOME。
+3. 定义一个 ecflow 变量（[variable](https://software.ecmwf.int/wiki/display/ECFLOW/Glossary#term-variable)），叫做 `ECF_HOME`。该变量定义定义名为 test 的 suite 可以在哪里找到所有的 unix 文件。余下的课程中，所有的文件名都相对于该目录。确保用你的 `ECF_HOME` 目录替换 `$ECF_HOME`。
 4. 定义一个名为 t1 的 task。
 5. [endsuite](https://software.ecmwf.int/wiki/display/ECFLOW/Definition+file+Grammar#grammar-token-endsuite) 结束名为 test 的 suite 的定义。
 
 ## python方法
 
-创建一个 python 文件，例如命名为 test.py:
+创建一个 python 文件，例如命名为 `test.py`:
 
 ```py
 import os

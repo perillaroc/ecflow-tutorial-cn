@@ -105,7 +105,7 @@ Checking job creation: .ecf -> .job0
 Saving definition to file 'test.def'
 ```
 
-层次结构在 ecflowview 中用树型结构表示。
+层次结构在 ecflow_ui 中用树型结构表示。
 
 ![](./asset/add_family.png)
 
@@ -115,4 +115,4 @@ Saving definition to file 'test.def'
 2. 创建需要的目录，并移动 ecf script
 3. 编辑脚本，从 `ECF_INCLUDE` 目录中包含头文件 `head.h` 和 `tail.h`。
 4. 替换 suite
-5. 在 ecflowview 中查看 suite，注意树形结构。可能需要展开 test 和 f1 来查看任务。
+5. 在 ecflow_ui 中查看 suite，注意树形结构。可能需要展开 test 和 f1 来查看任务。

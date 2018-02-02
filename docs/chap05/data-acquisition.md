@@ -35,6 +35,6 @@
 * [Repeat](https://software.ecmwf.int/wiki/display/ECFLOW/Repeat#repeat)
 * [Suite Definhition API](https://software.ecmwf.int/wiki/display/ECFLOW/ecFlow+Python+Api#suite-definition-python-api)
 
-因为没有标准 unix 日期操作命令，可以使用 ecf_date。
+因为没有标准 unix 日期操作命令，可以使用 `ecf_date`。
 
 参考答案《[Data acquisition solution](https://software.ecmwf.int/wiki/display/ECFLOW/Data+acquisition+solution#data-acquisition-soln)》

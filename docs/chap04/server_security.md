@@ -39,7 +39,7 @@ uid2
 
 1. 期望的白名单文件名显示在 ecFLow 服务的 `ECF_LISTS` 变量中，请查看该变量。
 
-![](./asset/white_lists.png)
+    ![](./asset/white_lists.png)
 
 2. 在 ecFlow 服务的根目录中创建以 `ECF_LISTS` 变量值为名的文件，将你的用户名加入其中。
 

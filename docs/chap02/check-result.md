@@ -62,8 +62,8 @@ endsuite
 查看 task t1，如果 `t1` 是 [complete](https://software.ecmwf.int/wiki/display/ECFLOW/Glossary#term-complete) 状态，
 并且 suite 是 complete 状态，那么运行成功。如果不是这种情况，则可能会有 [aborted](https://software.ecmwf.int/wiki/display/ECFLOW/Glossary#term-aborted) 状态。
 
-请检查 ecf script 的目录。服务器在 ecf script 相同的目录下创建 job file，名为 t1.job1。
-比较 t1.ecf，head.h，tail.h 和 t1.job1。作业的输出文件也放在 ecf script 的目录下，名为 t1.1。
+请检查 ecf script 的目录。服务器在 ecf script 相同的目录下创建 job file，名为 `t1.job1`。
+比较 `t1.ecf`，`head.h`，`tail.h` 和 `t1.job1`。作业的输出文件也放在 ecf script 的目录下，名为 `t1.1`。
 
 ## t1.ecf
 
@@ -175,7 +175,7 @@ trap 0                    # Remove all traps
 exit 0                    # End the shell
 ```
 
-t1.1
+## t1.1
 
 ```bash
 + set -o pipefail
@@ -208,7 +208,7 @@ I am part of a suite that lives in /g3/wangdp/project/study/ecflow/ecflow-tutori
 
 获取可以解析的 suite definition 定义
 
-```bash
+```
 $ecflow_client --host=login05 --port=33083 --get
 # 4.8.0
 suite test
@@ -217,7 +217,7 @@ suite test
 endsuite
 ```
 
-可以通过 Python API，编写如下文件 get_suite.py
+可以通过 Python API，编写如下文件 `get_suite.py`
 
 ```python
 import ecflow
@@ -281,7 +281,7 @@ endsuite
 
 Python 接口也提供类似的功能：
 
-```python
+```py
 import ecflow
 
 try:

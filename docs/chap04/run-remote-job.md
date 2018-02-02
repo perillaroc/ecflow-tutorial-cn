@@ -3,8 +3,8 @@
 ecFlow 使用 `ECF_JOB_CMD` 变量值提交作业。修改该变量可以控制在哪里如何运行作业。
 该变量应该与 `ECF_JOB` 和 `ECF_JOBOUT` 变量同时使用。
 
-* ECF_JOB 是作业文件（[job file](https://software.ecmwf.int/wiki/display/ECFLOW/Glossary#term-job-file)）的路径
-* ECF_JOBOUT 是标准输出流的文件位置
+* `ECF_JOB` 是作业文件（[job file](https://software.ecmwf.int/wiki/display/ECFLOW/Glossary#term-job-file)）的路径
+* `ECF_JOBOUT` 是标准输出流的文件位置
 
 默认的命令如下：
 
@@ -14,12 +14,12 @@ ECF_JOB_CMD = %ECF_JOB% 1> %ECF_JOBOUT% 2>&1 &
 
 接下来，我们将在远程主机上运行程序。需要使用 UNIX 命令 `ssh`。
 
-我们使用 HOST 变量定义远程主机的名字，我们假设所有远程主机上的文件都可见（例如使用 NFS）。
+我们使用 `HOST` 变量定义远程主机的名字，我们假设所有远程主机上的文件都可见（例如使用 NFS）。
 
 下面的例子中将字符串 `??????` 替换为你的实际的主机名。
 
->注意：远程运行任务的主机环境可能与本地运行的环境不同。这取决于你的系统如何设置。
-`head.h` 中应该使用设置正确的 `PATH`，可以直接调用 child command。<br>
+> 注意：远程运行任务的主机环境可能与本地运行的环境不同。这取决于你的系统如何设置。
+`head.h` 中应该使用设置正确的 `PATH`，可以直接调用 child command。<br/>
 如果没有设置，在 `head.h` 中调用 `ecflow_client --init` 前添加下面的语句：
 
 ```bash
@@ -37,7 +37,7 @@ cat $HOME/.ssh/id_rsa.pub || ssh-keygen -t rsa -b 2048
 cat $HOME/.ssh/id_rsa.pub | ssh $USER@$REMOTE_HOST 'cat >> $HOME/.ssh/authorized_keys'
 ```
 
-修改 family f5，是所有任务都在远程服务器上运行。本教程中的 ecflow 服务运行在 `login05` 节点中，下面使用 `login08` 节点运行 f5 下的所有作业。
+修改 family f5，是所有任务都在远程服务器上运行。本教程中的 ecflow 服务运行在 `login05` 节点中，下面使用 `login08` 节点运行 f5 下的所有作业。
 
 ## Suite Definition
 
@@ -87,9 +87,7 @@ from ecflow import Defs, Suite, Task, Family, Edit, Trigger, \
     RepeatString, RepeatInteger, RepeatDate, Limit, InLimit, \
     Late
 
-
 # ...skip...
-
 
 def create_family_f5():
     return Family("f5",
@@ -155,11 +153,7 @@ suite test
     task t8
     task t9
   endfamily
-  family f6
-    edit SLEEP '120'
-    task t1
-      late -c +00:01
-  endfamily
+  # ... skip ...
 endsuite
 
 Checking job creation: .ecf -> .job0
@@ -171,7 +165,7 @@ Saving definition to file 'test.def'
 
 我们可以通过使用一个日志服务器查看远程服务器上的输出文件。
 
-假设已定义变量 `ECF_LOGHOST` 和 `ECF_LOGPORT`。
+假设已定义变量 `ECF_LOGHOST` 和 `ECF_LOGPORT`。
 
 在远程服务器上运行 logserver：
 
@@ -193,8 +187,8 @@ ssh $USER@class01 /usr/local/apps/ecflow/4.8.0/bin/start_logserver -d /tmp/$USER
 
 5. 在 ecf script 脚本中添加 `hostname` 检查任务运行在哪台主机
 
-![](./asset/remote_run.png)
+    ![](./asset/remote_run.png)
 
-6. 如何才能让 /test/f5/t9 运行在另外一台主机上？实验你的方法。
+6. 如何才能让 `/test/f5/t9` 运行在另外一台主机上？实验你的方法。
 
 7. 创建一个 log 服务器，访问远程输出。

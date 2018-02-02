@@ -24,7 +24,7 @@ limit 的效果是确保该组中同时运行的任务数不超过 N。一个节
 
 创建有九个 task 的 family f5。
 
-在 $ECF_HOME/test/f5/ 目录下创建这些 ecf script 脚本，每个内容如下：
+在 `$ECF_HOME/test/f5/` 目录下创建这些 ecf script 脚本，每个内容如下：
 
 ```bash
 %include <head.h>
@@ -79,51 +79,7 @@ from ecflow import Defs, Suite, Task, Family, Edit, Trigger, \
     RepeatString, RepeatInteger, RepeatDate, Limit, InLimit
 
 
-def create_family_f1():
-    return Family(
-        "f1",
-        Edit(SLEEP=20),
-        Task("t1",
-             Time("03:00 23:00 00:30")),
-        Task("t2",
-             Day("sunday")),
-        Task("t3",
-             Date("1.*.*"),
-             Time("12:00")
-             ),
-        Task("t4",
-             Time("+00:02")),
-        Task("t5",
-             Time("00:02"))
-    )
-
-
-def create_family_house_keeping():
-    return Family("house_keeping",
-                  Task("clear_log",
-                       Cron("22:30", days_of_week=[0])))
-
-
-def create_family_f3():
-    return Family("f3",
-                  Task("t1",
-                       Label("info", "")))
-
-
-def create_family_f4():
-    return Family("f4",
-                  Edit(SLEEP=2),
-                  RepeatString("NAME", ["a", "b", "c", "d", "e", "f"]),
-                  Family("f5",
-                         RepeatInteger("VALUE", 1, 10),
-                         Task("t1",
-                              RepeatDate("DATE", 20101230, 20110105),
-                              Label("info", ""),
-                              Label("date", "")
-                              )
-                         )
-                  )
-
+# ... skip ...
 
 def create_family_f5():
     return Family("f5",
@@ -165,39 +121,7 @@ suite test
   edit ECF_INCLUDE '/g3/wangdp/project/study/ecflow/ecflow-tutorial-code/build/course'
   edit ECF_HOME '/g3/wangdp/project/study/ecflow/ecflow-tutorial-code/build/course'
   limit l1 2
-  family f1
-    edit SLEEP '20'
-    task t1
-      time 03:00 23:00 00:30
-    task t2
-      day sunday
-    task t3
-      time 12:00
-      date 1.*.*
-    task t4
-      time +00:02
-    task t5
-      time 00:02
-  endfamily
-  family house_keeping
-    task clear_log
-      cron -w 0 22:30
-  endfamily
-  family f3
-    task t1
-      label info ""
-  endfamily
-  family f4
-    repeat string NAME "a" "b" "c" "d" "e" "f"
-    edit SLEEP '2'
-    family f5
-      repeat integer VALUE 1 10
-      task t1
-        repeat date DATE 20101230 20110105 1
-        label info ""
-        label date ""
-    endfamily
-  endfamily
+  # ... skip ...
   family f5
     edit SLEEP '20'
     inlimit l1
@@ -263,16 +187,12 @@ suite.add_limit(limit)
 2. 替换 suite definition
 3. 在 ecflow_ui 中观察 limit l1
 
-![](./asset/limit_suite.png)
+    ![](./asset/limit_suite.png)
 
-4. 打开 l1 的 info 面板
+4. 修改 limit 的值
 
-![](./asset/limit-info.jpg)
+    ![](./asset/limit_edit.png)
 
-5. 修改 limit 的值
+5. 打开 /test/f5 下某个排队 task 的 Why 面板
 
-![](./asset/limit_edit.png)
-
-6. 打开 /test/f5 下某个排队 task 的 Why 面板
-
-![](./asset/limit_edit_after.png)
+    ![](./asset/limit_edit_after.png)
