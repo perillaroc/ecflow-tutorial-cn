@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>使用 python 脚本 on ecFlow教程中文版</title>
+    <link>https://perillaroc.github.io/ecflow-tutorial-cn/chap04/python/</link>
+    <description>Recent content in 使用 python 脚本 on ecFlow教程中文版</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    
+	<atom:link href="https://perillaroc.github.io/ecflow-tutorial-cn/chap04/python/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>缩进</title>
+      <link>https://perillaroc.github.io/ecflow-tutorial-cn/chap04/python/indentation/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://perillaroc.github.io/ecflow-tutorial-cn/chap04/python/indentation/</guid>
+      <description>文本方式支持首行缩进。但 Python 中缩进也是语法结构，会影响程序的含义。
+然而，从之前的例子中我们已经看到，可以使用节点构造函数来提供缩进，用以显示定义结构。
+import os from ecflow import Defs,Suite,Family,Task,Edit,Trigger,Complete,Event,Meter,Time,Day,Date print(&amp;quot;Creating suite definition&amp;quot;) home = os.path.join(os.getenv(&amp;quot;HOME&amp;quot;), &amp;quot;course&amp;quot;) defs = Defs( Suite(&amp;quot;test&amp;quot;, Edit(ECF_INCLUDE=home,ECF_HOME=home), Family(&amp;quot;f1&amp;quot;, Edit(SLEEP=20), Task(&amp;quot;t1&amp;quot;, Meter(&amp;quot;progress&amp;quot;, 1, 100, 90)), Task(&amp;quot;t2&amp;quot;, Trigger(&amp;quot;t1 == complete&amp;quot;),Event(&amp;quot;a&amp;quot;),Event(&amp;quot;b&amp;quot;)), Task(&amp;quot;t3&amp;quot;, Trigger(&amp;quot;t2:a&amp;quot;)), Task(&amp;quot;t4&amp;quot;, Trigger(&amp;quot;t2 == complete&amp;quot;), Complete(&amp;quot;t2:b&amp;quot;)), Task(&amp;quot;t5&amp;quot;, Trigger(&amp;quot;t1:progress ge 30&amp;quot;)), Task(&amp;quot;t6&amp;quot;, Trigger(&amp;quot;t1:progress ge 60&amp;quot;)), Task(&amp;quot;t7&amp;quot;, Trigger(&amp;quot;t1:progress ge 90&amp;quot;))), Family(&amp;quot;f2&amp;quot;, Edit(SLEEP=20), Task(&amp;quot;t1&amp;quot;, Time( &amp;quot;00:30 23:30 00:30&amp;quot; )), Task(&amp;quot;t2&amp;quot;, Day( &amp;quot;sunday&amp;quot; )), Task(&amp;quot;t3&amp;quot;, Date(&amp;quot;1.*.*&amp;quot;), Time(&amp;quot;12:00&amp;quot;)), Task(&amp;quot;t4&amp;quot;, Time(&amp;quot;+00:02&amp;quot;)), Task(&amp;quot;t5&amp;quot;, Time(&amp;quot;00:02&amp;quot;))))) print(defs) print(&amp;quot;Checking job creation: .</description>
+    </item>
+    
+    <item>
+      <title>面向对象suite</title>
+      <link>https://perillaroc.github.io/ecflow-tutorial-cn/chap04/python/object-oriented-suites/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://perillaroc.github.io/ecflow-tutorial-cn/chap04/python/object-oriented-suites/</guid>
+      <description>Python 的面向对象设计特性允许我们在设计和构建 suite definition 时考虑灵活性。 设计每个 suite 有不同的准则。让我们考虑如何以一种更面向对象的方式设计本教程的例子。我们以一些设计准则开始。
+ 默认变量（例如 ECF_HOME 等）必须设置，并与 suite 独立 新的 suite 必须开启自动检测 job 生成。 需要将 definition 保存到单独的文件。 新的 suite 应该能够复用为上面要求而设计的代码  下面是一种可行的设计，使用单例模式和模板模式。
+import os import ecflow class DefaultVariables(object): &amp;quot;&amp;quot;&amp;quot;Provide the setup variables for each suite&amp;quot;&amp;quot;&amp;quot; def add_to(self, node): &amp;quot;&amp;quot;&amp;quot;Adds ECF_INCLUDE,ECF_HOME to the input node&amp;quot;&amp;quot;&amp;quot; node.add_variable(&amp;quot;ECF_INCLUDE&amp;quot;, os.path.join(os.getenv(&amp;quot;HOME&amp;quot;), &amp;quot;course&amp;quot;)) node.add_variable(&amp;quot;ECF_HOME&amp;quot;, os.path.join(os.getenv(&amp;quot;HOME&amp;quot;), &amp;quot;course&amp;quot;)) class BaseSuiteBuilder(object): &amp;quot;&amp;quot;&amp;quot;Abstract class. Add default variables to suite and enable job creation checking for any derived suite &amp;quot;&amp;quot;&amp;quot; def __init__(self, default_variables): self.</description>
+    </item>
+    
+  </channel>
+</rss>

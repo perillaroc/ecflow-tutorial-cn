@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>2. 开始使用 on ecFlow教程中文版</title>
+    <link>https://perillaroc.github.io/ecflow-tutorial-cn/chap02/</link>
+    <description>Recent content in 2. 开始使用 on ecFlow教程中文版</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    
+	<atom:link href="https://perillaroc.github.io/ecflow-tutorial-cn/chap02/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>定义新的 suite</title>
+      <link>https://perillaroc.github.io/ecflow-tutorial-cn/chap02/define-new-suite/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://perillaroc.github.io/ecflow-tutorial-cn/chap02/define-new-suite/</guid>
+      <description>有多种定义 suite definition 的方法，参看 Definition creation strategies。
+本教程介绍下面两种方式：
+ 文本方法 Python 方法  文本方法 创建文本文件 test.def，内容如下：
+# Definition of the suite test suite test edit ECF_HOME &amp;quot;$ECF_HOME&amp;quot; # replace &#39;$ECF_HOME&#39; with the path to your ECF_HOME directory task t1 endsuite   译者注：与 SMS 的定义方式相同，只需要修改变量名，将 SMS_XXX 修改为 ECF_XXX。
+ 上述文件包含一个名为 test 的 suite 的 suite definition，该 suite 包含一个名为 t1 的 task。
+下面逐行解释含义
+ 该行为注释。在 # 后到行尾之间的所有字符都会被忽略。 定义一个名为 test 的新的 suite。 定义一个 ecflow 变量（variable），叫做 ECF_HOME。该变量定义定义名为 test 的 suite 可以在哪里找到所有的 unix 文件。余下的课程中，所有的文件名都相对于该目录。确保用你的 ECF_HOME 目录替换 $ECF_HOME。 定义一个名为 t1 的 task。 endsuite 结束名为 test 的 suite 的定义。  python方法 创建一个 python 文件，例如命名为 test.</description>
+    </item>
+    
+    <item>
+      <title>理解头文件</title>
+      <link>https://perillaroc.github.io/ecflow-tutorial-cn/chap02/understand-includes/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://perillaroc.github.io/ecflow-tutorial-cn/chap02/understand-includes/</guid>
+      <description>前面的章节我们创建了一个 task。
+每个 task 都有对应的 ecf script，定义需要执行那些操作。脚本类似于 UNIX shell 脚本。
+但 ecf script 提供于 C 语言类似的预处理指令 （pre-processing directive）和预定义变量。
+suite definition 中定义的变量可以在 ecf script 中使用，提供一种配置机制。
+默认人使用字符 % 表示预处理指令，其中一种就是 include 头文件。
+头文件用于向脚本中注入代码（与 C 语言的 include 头文件一样），提供一种代码复用的机制。 如果相同的代码出现在不同的 ecf script 文件中，这些代码就应该放入一个头文件中。这样会提供一个单一的维护点。 例如，每个 task 都需要建立与 ecflow_server 的通讯，并告诉服务器任务已经开始。 这个样例代码就放在头文件中。
+head.h 放在 ecf script 开头，完成如下任务：
+ 准备与 ecflow_server 通信的环境。 定义脚本错误处理函数。当错误发生，通知服务器该任务 aborted。 使用 child command 通知服务器作业已经开始。  #!%SHELL:/bin/ksh% set -e # stop the shell on first error set -u # fail when using an undefined variable set -x # echo script lines as they are executed set -o pipefail # fail if last(rightmost) command exits with a non-zero status # Defines the variables that are needed for any communication with ECF export ECF_PORT=%ECF_PORT% # The server port number export ECF_HOST=%ECF_HOST% # The host name where the server is running export ECF_NAME=%ECF_NAME% # The name of this current task export ECF_PASS=%ECF_PASS% # A unique password export ECF_TRYNO=%ECF_TRYNO% # Current try number of the task export ECF_RID=$$ # record the process id.</description>
+    </item>
+    
+    <item>
+      <title>定义第一个task</title>
+      <link>https://perillaroc.github.io/ecflow-tutorial-cn/chap02/define-first-task/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://perillaroc.github.io/ecflow-tutorial-cn/chap02/define-first-task/</guid>
+      <description>接下来，我们需要为 task t1 编写 ecf script。
+默认情况下，ecFlow 认为文件放在 ECF_HOME 目录下的一个目录结构中，该层次结构反映 suite 的层次关系。task t1 在 suite test 中，对应的 ecf script 应该在子目录 test 下。
+在 ECF_HOME 下创建 test 文件夹
+$ mkdir test  在 test 中，创建 t1.ecf，文件内容为
+%include &amp;quot;../head.h&amp;quot; echo &amp;quot;I am part of a suite that lives in %ECF_HOME%&amp;quot; %include &amp;quot;../tail.h&amp;quot;  脚本创建 在提交任务前，服务会将 ecf script 转化成一个 job file。 这个过程叫做 job creation。
+包括在磁盘中定位 ecf script，然后预处理指令。这个步骤包括进行变量替换 （variable substitution）。
+这将创建一个以.job结尾的文件，ecflow_server 将该文件提交给你的系统。
+在我们的例子中：</description>
+    </item>
+    
+    <item>
+      <title>检查job生成</title>
+      <link>https://perillaroc.github.io/ecflow-tutorial-cn/chap02/check-job-creation/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://perillaroc.github.io/ecflow-tutorial-cn/chap02/check-job-creation/</guid>
+      <description>前面章节我们已经实现第一个 task（t1.ecf 文件）。t1.ecf 脚本需要经过预处理生成 jobs file。这个过程由 ecflow_server 在将要运行 task 时自动完成。
+我们还可以在 suite definition 加载到 ecflow_server 前检查 job creation。
+文本方式 检查脚本生成仅在 Python 方式下可用。
+如果 ecflow_server 无法定位 ecf script，请参看 ecf file location algorithm。
+Python 在 suite 定义加载到服务器前可以检查作业生成过程，检查包括：
+ 定位 ecf 脚本文件，对应 suite 定义中的每个 task 进行预处理  当 suite definition 较长且包含许多 ecf script 时，这种检查可以节省大量时间。
+检查 job creation 时需要注意一下几点：
+ 检查独立于 ecflow_server，所以 ECF_PORT 和 ECF_NODE 将被设为默认值。 job 文件扩展名为 .job0，服务器生成的 job 文件扩展名为 .job&amp;lt;1-n&amp;gt;，ECF_TRYNO将不为0. 默认 job 文件将在 ecf 脚本同样目录下生成，请查看词汇表 ECF_JOB。  使用 ecflow.</description>
+    </item>
+    
+    <item>
+      <title>理解客户端</title>
+      <link>https://perillaroc.github.io/ecflow-tutorial-cn/chap02/understand-client/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://perillaroc.github.io/ecflow-tutorial-cn/chap02/understand-client/</guid>
+      <description>所有与 ecflow_server 的通讯都需要通过 ecflow_client。任何与服务器的通讯都需要知道服务器的地址和端口。同一台主机中可能运行多个服务，每个服务都有唯一的端口号。
+本教程将会给出通过 shell 和在Python 脚本中使用客户端的例子。
+客户端命令行接口 客户端命令的列表：
+$ecflow_client --help Client/server based work flow package: Ecflow version(4.8.0) boost(1.53.0) compiler(gcc 4.8.5) protocol(TEXT_ARCHIVE) Compiled on Jan 18 2018 13:37:13 ecflow_client provides the command line interface, for interacting with the server: Try: ecflow_client --help=all # List all commands, verbosely ecflow_client --help=summary # One line summary of all commands ecflow_client --help=child # One line summary of child commands ecflow_client --help=user # One line summary of user command ecflow_client --help=&amp;lt;cmd&amp;gt; # Detailed help on each command Commands: abort alter begin ch_add ch_auto_add ch_drop ch_drop_user ch_register ch_rem ch_suites check checkJobGenOnly check_pt complete debug debug_server_off debug_server_on delete edit_history edit_script event file force force-dep-eval free-dep get get_state group halt help host init job_gen kill label load log meter migrate msg news order ping plug port reloadwsfile replace requeue restart restore_from_checkpt resume rid run server_load server_version show shutdown stats stats_reset status suites suspend sync sync_full terminate version wait why zombie_adopt zombie_block zombie_fail zombie_fob zombie_get zombie_kill zombie_remove  上面提到过，使用 ecflow_client 与服务器通讯需要设置 host 和 port，如下方法确定：</description>
+    </item>
+    
+    <item>
+      <title>检查结果</title>
+      <link>https://perillaroc.github.io/ecflow-tutorial-cn/chap02/check-result/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://perillaroc.github.io/ecflow-tutorial-cn/chap02/check-result/</guid>
+      <description>使用如下命令查看 suite 的运行状态：
+$ecflow_client --host=login05 --port=33083 --get_state # 4.8.0 defs_state STATE state&amp;gt;:complete flag:message state_change:84 modify_change:15 edit ECF_MICRO &#39;%&#39; # server edit ECF_HOME &#39;/g3/wangdp/ecf_home&#39; # server edit ECF_JOB_CMD &#39;%ECF_JOB% 1&amp;gt; %ECF_JOBOUT% 2&amp;gt;&amp;amp;1&#39; # server edit ECF_KILL_CMD &#39;kill -15 %ECF_RID%&#39; # server edit ECF_STATUS_CMD &#39;ps --sid %ECF_RID% -f&#39; # server edit ECF_URL_CMD &#39;${BROWSER:=firefox} -remote &#39;openURL(%ECF_URL_BASE%/%ECF_URL%)&#39;&#39; # server edit ECF_URL_BASE &#39;https://software.ecmwf.int&#39; # server edit ECF_URL &#39;wiki/display/ECFLOW/Home&#39; # server edit ECF_LOG &#39;/g3/wangdp/ecf_home/a303r6n1.33083.ecf.log&#39; # server edit ECF_INTERVAL &#39;60&#39; # server edit ECF_LISTS &#39;/g3/wangdp/ecf_home/ecf.</description>
+    </item>
+    
+  </channel>
+</rss>

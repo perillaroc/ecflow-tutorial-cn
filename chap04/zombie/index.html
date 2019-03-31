@@ -1,0 +1,2098 @@
+<!DOCTYPE html>
+<html lang="en" class="js csstransforms3d">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="Hugo 0.54.0" />
+    <meta name="description" content="">
+
+
+    <link rel="icon" href="https://perillaroc.github.io/ecflow-tutorial-cn/images/favicon.png" type="image/png">
+
+    <title>Zombie 介绍 :: ecFlow教程中文版</title>
+
+    
+    <link href="https://perillaroc.github.io/ecflow-tutorial-cn/css/nucleus.css?1554043307" rel="stylesheet">
+    <link href="https://perillaroc.github.io/ecflow-tutorial-cn/css/fontawesome-all.min.css?1554043307" rel="stylesheet">
+    <link href="https://perillaroc.github.io/ecflow-tutorial-cn/css/hybrid.css?1554043307" rel="stylesheet">
+    <link href="https://perillaroc.github.io/ecflow-tutorial-cn/css/featherlight.min.css?1554043307" rel="stylesheet">
+    <link href="https://perillaroc.github.io/ecflow-tutorial-cn/css/perfect-scrollbar.min.css?1554043307" rel="stylesheet">
+    <link href="https://perillaroc.github.io/ecflow-tutorial-cn/css/auto-complete.css?1554043307" rel="stylesheet">
+    <link href="https://perillaroc.github.io/ecflow-tutorial-cn/css/theme.css?1554043307" rel="stylesheet">
+    <link href="https://perillaroc.github.io/ecflow-tutorial-cn/css/hugo-theme.css?1554043307" rel="stylesheet">
+    
+
+    <script src="https://perillaroc.github.io/ecflow-tutorial-cn/js/jquery-2.x.min.js?1554043307"></script>
+
+    <style type="text/css">
+      :root #header + #content > #left > #rlblock_left{
+          display:none !important;
+      }
+      
+    </style>
+    
+  </head>
+  <body class="" data-url="/chap04/zombie/">
+    <nav id="sidebar" class="">
+
+
+
+  <div id="header-wrapper">
+    <div id="header">
+      <a id="logo" href="https://perillaroc.github.io/ecflow-tutorial-cn/">
+<svg id="grav-logo" xmlns="http://www.w3.org/2000/svg" style="width:100%; height:100%;" viewBox="0 0 121.58 26">
+  <defs>
+    <style>
+      .a {
+        fill: none;
+        stroke: white;
+        stroke-linecap: round;
+        stroke-miterlimit: 10;
+        stroke-width: 2px;
+      }
+
+      .b {
+        font-size: 18px;
+        font-family: BerlinSansFB-Reg, Berlin Sans FB;
+        fill: white;
+      }
+    </style>
+  </defs>
+  <circle class="a" cx="13" cy="13" r="12" /><text class="b" transform="translate(29.75 18.75)">NWP-OPER</text>
+  <line class="a" x1="4" y1="20.11" x2="7" y2="14.11" />
+  <line class="a" x1="12" y1="18.11" x2="7" y2="14.11" />
+  <line class="a" x1="17" y1="13.11" x2="12" y2="18.11" />
+  <line class="a" x1="23" y1="19.11" x2="17" y2="13.11" />
+</svg>
+</a>
+    </div>
+    
+        <div class="searchbox">
+    <label for="search-by"><i class="fas fa-search"></i></label>
+    <input data-search-input id="search-by" type="search" placeholder="Search...">
+    <span data-search-clear=""><i class="fas fa-times"></i></span>
+</div>
+
+<script type="text/javascript" src="https://perillaroc.github.io/ecflow-tutorial-cn/js/lunr.min.js?1554043307"></script>
+<script type="text/javascript" src="https://perillaroc.github.io/ecflow-tutorial-cn/js/auto-complete.js?1554043307"></script>
+<script type="text/javascript">
+    
+        var baseurl = "https:\/\/perillaroc.github.io\/ecflow-tutorial-cn\/";
+    
+</script>
+<script type="text/javascript" src="https://perillaroc.github.io/ecflow-tutorial-cn/js/search.js?1554043307"></script>
+
+    
+  </div>
+
+    <div class="highlightable">
+    <ul class="topics">
+
+          
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/chap01/" title="1. 介绍" class="dd-item 
+        
+        
+        
+        ">
+      <a href="https://perillaroc.github.io/ecflow-tutorial-cn/chap01/">
+          1. 介绍
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/chap02/" title="2. 开始使用" class="dd-item 
+        
+        
+        
+        ">
+      <a href="https://perillaroc.github.io/ecflow-tutorial-cn/chap02/">
+          2. 开始使用
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+          
+          
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/chap02/use-ecflow-ui/" title="使用 ecflow_ui" class="dd-item 
+        
+        
+        
+        ">
+      <a href="https://perillaroc.github.io/ecflow-tutorial-cn/chap02/use-ecflow-ui/">
+          使用 ecflow_ui
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/chap02/load-file/" title="加载文件" class="dd-item 
+        
+        
+        
+        ">
+      <a href="https://perillaroc.github.io/ecflow-tutorial-cn/chap02/load-file/">
+          加载文件
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/chap02/start-suite/" title="启动suite" class="dd-item 
+        
+        
+        
+        ">
+      <a href="https://perillaroc.github.io/ecflow-tutorial-cn/chap02/start-suite/">
+          启动suite
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/chap02/define-new-suite/" title="定义新的 suite" class="dd-item ">
+        <a href="https://perillaroc.github.io/ecflow-tutorial-cn/chap02/define-new-suite/">
+        定义新的 suite
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/chap02/define-first-task/" title="定义第一个task" class="dd-item ">
+        <a href="https://perillaroc.github.io/ecflow-tutorial-cn/chap02/define-first-task/">
+        定义第一个task
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/chap02/execute-rerun-requeue/" title="执行、重新执行、重新排队" class="dd-item 
+        
+        
+        
+        ">
+      <a href="https://perillaroc.github.io/ecflow-tutorial-cn/chap02/execute-rerun-requeue/">
+          执行、重新执行、重新排队
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/chap02/check-job-creation/" title="检查job生成" class="dd-item ">
+        <a href="https://perillaroc.github.io/ecflow-tutorial-cn/chap02/check-job-creation/">
+        检查job生成
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/chap02/check-result/" title="检查结果" class="dd-item ">
+        <a href="https://perillaroc.github.io/ecflow-tutorial-cn/chap02/check-result/">
+        检查结果
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/chap02/understand-includes/" title="理解头文件" class="dd-item ">
+        <a href="https://perillaroc.github.io/ecflow-tutorial-cn/chap02/understand-includes/">
+        理解头文件
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/chap02/understand-client/" title="理解客户端" class="dd-item ">
+        <a href="https://perillaroc.github.io/ecflow-tutorial-cn/chap02/understand-client/">
+        理解客户端
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/chap03/" title="3. 进一步" class="dd-item 
+        
+        
+        
+        ">
+      <a href="https://perillaroc.github.io/ecflow-tutorial-cn/chap03/">
+          3. 进一步
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+          
+          
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/chap03/families/" title="Families" class="dd-item 
+        
+        
+        
+        ">
+      <a href="https://perillaroc.github.io/ecflow-tutorial-cn/chap03/families/">
+          Families
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/chap03/ecflow-variable/" title="ecFlow变量" class="dd-item 
+        
+        
+        
+        ">
+      <a href="https://perillaroc.github.io/ecflow-tutorial-cn/chap03/ecflow-variable/">
+          ecFlow变量
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/chap03/variable-inheritance/" title="变量继承" class="dd-item 
+        
+        
+        
+        ">
+      <a href="https://perillaroc.github.io/ecflow-tutorial-cn/chap03/variable-inheritance/">
+          变量继承
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/chap03/time-dependencies/" title="时间依赖" class="dd-item 
+        
+        
+        
+        ">
+      <a href="https://perillaroc.github.io/ecflow-tutorial-cn/chap03/time-dependencies/">
+          时间依赖
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/chap03/add-cron/" title="添加 Cron" class="dd-item 
+        
+        
+        
+        ">
+      <a href="https://perillaroc.github.io/ecflow-tutorial-cn/chap03/add-cron/">
+          添加 Cron
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/chap03/add-complete/" title="添加complete" class="dd-item 
+        
+        
+        
+        ">
+      <a href="https://perillaroc.github.io/ecflow-tutorial-cn/chap03/add-complete/">
+          添加complete
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/chap03/add-meter/" title="添加meter" class="dd-item 
+        
+        
+        
+        ">
+      <a href="https://perillaroc.github.io/ecflow-tutorial-cn/chap03/add-meter/">
+          添加meter
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/chap03/add-event/" title="添加事件" class="dd-item 
+        
+        
+        
+        ">
+      <a href="https://perillaroc.github.io/ecflow-tutorial-cn/chap03/add-event/">
+          添加事件
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/chap03/add-another-task/" title="添加另一个任务" class="dd-item 
+        
+        
+        
+        ">
+      <a href="https://perillaroc.github.io/ecflow-tutorial-cn/chap03/add-another-task/">
+          添加另一个任务
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/chap03/add-trigger/" title="添加触发器" class="dd-item 
+        
+        
+        
+        ">
+      <a href="https://perillaroc.github.io/ecflow-tutorial-cn/chap03/add-trigger/">
+          添加触发器
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/chap03/add-manual/" title="添加说明" class="dd-item 
+        
+        
+        
+        ">
+      <a href="https://perillaroc.github.io/ecflow-tutorial-cn/chap03/add-manual/">
+          添加说明
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/chap04/" title="4. 高级话题" class="dd-item 
+        parent
+        
+        
+        ">
+      <a href="https://perillaroc.github.io/ecflow-tutorial-cn/chap04/">
+          4. 高级话题
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+          
+          
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/chap04/alias/" title="Alias" class="dd-item 
+        
+        
+        
+        ">
+      <a href="https://perillaroc.github.io/ecflow-tutorial-cn/chap04/alias/">
+          Alias
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/chap04/label/" title="Label" class="dd-item 
+        
+        
+        
+        ">
+      <a href="https://perillaroc.github.io/ecflow-tutorial-cn/chap04/label/">
+          Label
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/chap04/late-attribute/" title="Late 属性" class="dd-item 
+        
+        
+        
+        ">
+      <a href="https://perillaroc.github.io/ecflow-tutorial-cn/chap04/late-attribute/">
+          Late 属性
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/chap04/limit/" title="Limit" class="dd-item 
+        
+        
+        
+        ">
+      <a href="https://perillaroc.github.io/ecflow-tutorial-cn/chap04/limit/">
+          Limit
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/chap04/repeat/" title="Repeat" class="dd-item 
+        
+        
+        
+        ">
+      <a href="https://perillaroc.github.io/ecflow-tutorial-cn/chap04/repeat/">
+          Repeat
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/chap04/zombie/" title="Zombie 介绍" class="dd-item 
+        parent
+        active
+        
+        ">
+      <a href="https://perillaroc.github.io/ecflow-tutorial-cn/chap04/zombie/">
+          Zombie 介绍
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/chap04/python/" title="使用 python 脚本" class="dd-item 
+        
+        
+        
+        ">
+      <a href="https://perillaroc.github.io/ecflow-tutorial-cn/chap04/python/">
+          使用 python 脚本
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+          
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/chap04/python/indentation/" title="缩进" class="dd-item ">
+        <a href="https://perillaroc.github.io/ecflow-tutorial-cn/chap04/python/indentation/">
+        缩进
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/chap04/python/object-oriented-suites/" title="面向对象suite" class="dd-item ">
+        <a href="https://perillaroc.github.io/ecflow-tutorial-cn/chap04/python/object-oriented-suites/">
+        面向对象suite
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/chap04/file-location/" title="文件位置" class="dd-item 
+        
+        
+        
+        ">
+      <a href="https://perillaroc.github.io/ecflow-tutorial-cn/chap04/file-location/">
+          文件位置
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/chap04/data-and-clock/" title="日期和时钟" class="dd-item 
+        
+        
+        
+        ">
+      <a href="https://perillaroc.github.io/ecflow-tutorial-cn/chap04/data-and-clock/">
+          日期和时钟
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/chap04/server_security/" title="服务安全" class="dd-item 
+        
+        
+        
+        ">
+      <a href="https://perillaroc.github.io/ecflow-tutorial-cn/chap04/server_security/">
+          服务安全
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+    <li data-nav-id="/chap04/run-remote-job/" title="运行远程作业" class="dd-item 
+        
+        
+        
+        ">
+      <a href="https://perillaroc.github.io/ecflow-tutorial-cn/chap04/run-remote-job/">
+          运行远程作业
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+ 
+  
+    
+    <li data-nav-id="/chap05/" title="5. 练习" class="dd-item 
+        
+        
+        
+        ">
+      <a href="https://perillaroc.github.io/ecflow-tutorial-cn/chap05/">
+          5. 练习
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+          
+          
+          
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/chap05/bask-archiving/" title="Back Archiving" class="dd-item ">
+        <a href="https://perillaroc.github.io/ecflow-tutorial-cn/chap05/bask-archiving/">
+        Back Archiving
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/chap05/operation-suite/" title="业务Suite" class="dd-item ">
+        <a href="https://perillaroc.github.io/ecflow-tutorial-cn/chap05/operation-suite/">
+        业务Suite
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+            
+            
+
+
+ 
+  
+    
+      <li data-nav-id="/chap05/data-acquisition/" title="数据获取" class="dd-item ">
+        <a href="https://perillaroc.github.io/ecflow-tutorial-cn/chap05/data-acquisition/">
+        数据获取
+        
+        </a>
+    </li>
+     
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+         
+    </ul>
+
+    
+    
+
+    
+    <section id="footer">
+      <p>Built with <a href="https://github.com/matcornic/hugo-theme-learn"><i class="fas fa-heart"></i></a> from <a href="http://getgrav.org">Grav</a> and <a href="http://gohugo.io/">Hugo</a></p>
+
+    </section>
+  </div>
+</nav>
+
+
+
+
+
+        <section id="body">
+        <div id="overlay"></div>
+        <div class="padding highlightable">
+              
+              <div>
+                <div id="top-bar">
+                
+                
+                <div id="breadcrumbs" itemscope="" itemtype="http://data-vocabulary.org/Breadcrumb">
+                    <span id="sidebar-toggle-span">
+                        <a href="#" id="sidebar-toggle" data-sidebar-toggle="">
+                          <i class="fas fa-bars"></i>
+                        </a>
+                    </span>
+                  
+                  <span id="toc-menu"><i class="fas fa-list-alt"></i></span>
+                  
+                  <span class="links">
+                 
+                 
+                    
+          
+          
+            
+            
+          
+          
+            
+            
+          
+          
+            <a href='https://perillaroc.github.io/ecflow-tutorial-cn/'>ecFlow教程</a> > <a href='https://perillaroc.github.io/ecflow-tutorial-cn/chap04/'>4. 高级话题</a> > Zombie 介绍
+          
+         
+          
+         
+          
+        
+                 
+                  </span>
+                </div>
+                
+                    <div class="progress">
+    <div class="wrapper">
+<nav id="TableOfContents">
+<ul>
+<li>
+<ul>
+<li><a href="#如何产生">如何产生</a></li>
+<li><a href="#如何处理">如何处理</a>
+<ul>
+<li><a href="#terminate">Terminate</a></li>
+<li><a href="#fob">Fob</a></li>
+<li><a href="#delete">Delete</a></li>
+<li><a href="#rescure">Rescure</a></li>
+<li><a href="#kill">Kill</a></li>
+</ul></li>
+<li><a href="#任务">任务</a></li>
+</ul></li>
+</ul>
+</nav>
+    </div>
+</div>
+
+                
+              </div>
+            </div>
+            
+        <div id="head-tags">
+        
+        </div>
+        
+        <div id="body-inner">
+          
+            <h1>
+              
+              Zombie 介绍
+            </h1>
+          
+
+        
+
+
+
+
+	
+
+<p><a href="https://software.ecmwf.int/wiki/display/ECFLOW/Glossary#term-zombie">Zombie</a> 是与 <code>ecflow_server</code> 通信验证权限失败的正在运行的作业。</p>
+
+<h2 id="如何产生">如何产生</h2>
+
+<p>Zombie 的产生有多种原因，常见的原因集中在如下几点：</p>
+
+<ul>
+<li>作业运行时，节点树被删除、替换、重新加载。</li>
+<li>作业正在运行时（处于 submitted 或 active 状态），被重新运行</li>
+<li>作业被强制设为新状态，如 complete</li>
+</ul>
+
+<p>更罕见的原因有：</p>
+
+<ul>
+<li>ecf 脚本错误，多次运行初始化或完成命令</li>
+<li>ecf script 中的 child command 被放到后台，这种情况下，子节点命令执行顺序不正确。</li>
+<li>负载控制器多次提交作业</li>
+<li>服务器宕机，恢复 <a href="https://software.ecmwf.int/wiki/display/ECFLOW/Glossary#term-check-point">check point</a> 文件过期</li>
+<li>机器故障</li>
+</ul>
+
+<h2 id="如何处理">如何处理</h2>
+
+<p><code>init</code>，<code>complete</code>，<code>wait</code> 命令的默认行为是 <code>block</code> 作业，<code>event</code>，<code>label</code>，<code>meter</code> 的默认行为是 <code>fob</code>。</p>
+
+<p>child 命令持续尝试连接 <code>ecflow_server</code>，直到24小时（由 <code>ecflow_client</code> 端的 <code>ECF_TIMEOUT</code> 指定）。之后 child 命令（<code>init</code>，<code>complete</code>，<code>abort</code>）出错退出。</p>
+
+<p>根据脚本中设置，错误可能被 <code>trap</code> 获取，然后通常会调用 <code>abort</code> 子命令，这可能会再次等待 24 小时后才会退出。</p>
+
+<p>因此上述方式对你的系统是否恰当很值得考虑。</p>
+
+<p>可以设置子命令在服务器拒绝连接时立刻出错（通过在脚本中设置 <code>ECF_DENIED</code> 环境变量实现，请查看 <code>ecflow_client</code>），便于提早发现网络错误。</p>
+
+<p>ecflow_ui 提供一个标签，列出所有的 zombies 和可以采用的处理方法。</p>
+
+<p><img src="asset/zombie_tab.png" alt="" /></p>
+
+<blockquote>
+<p>选择服务节点（最顶层的节点）后，会在信息面板中出现 zombies 标签。</p>
+</blockquote>
+
+<p>处理方法包括：</p>
+
+<h3 id="terminate">Terminate</h3>
+
+<p>令命令失败，根据脚本可能会调用 <code>abort</code> 命令，会导致生成新的 zombie。</p>
+
+<h3 id="fob">Fob</h3>
+
+<p>允许作业继续运行。child command 命令运行结束，因此不再阻止作业。</p>
+
+<p>但要特别注意可能会出现的问题。如果有两个运行中的作业，会导致数据冲突。即便有大哥作业，可以能产生问题。例如，相关命令是 event 命令，该 event 将不会被设置，如果后续的 trigger 表达式中有该 event，该 trigger 就不会生效。</p>
+
+<h3 id="delete">Delete</h3>
+
+<p>从服务器移除 zombie，作业仍被阻塞，子命令再次尝试连接 ecflow_server 时，会再次出现zombie。</p>
+
+<p>手动杀掉作业时，可以使用该选项。</p>
+
+<h3 id="rescure">Rescure</h3>
+
+<p><strong>接受</strong> zombie，更新节点树。zobmie 的 <code>ECF_PASS</code> 将会拷贝到 task 上，因此下一次的 child command 将会正常运行。用户要确保没有其他作业运行。</p>
+
+<h3 id="kill">Kill</h3>
+
+<p>使用 <code>ECF_KILL_CMD</code> 杀掉 zombie。如果脚本中正确的信号捕获，该操作会以调用 abort 结束。</p>
+
+<p>path zombies 需要手动杀掉。</p>
+
+<blockquote>
+<p>注意：上面四中方法中，只有 Rescue 允许 child command 修改节点树的状态。</p>
+</blockquote>
+
+<h2 id="任务">任务</h2>
+
+<ol>
+<li>创建一个 zombie：启动某个 task，通过 ecflow_ui 立即将它设为 complete。</li>
+<li>查看 log 文件，可以看到 zombie 如何形成。</li>
+</ol>
+
+<pre><code class="language-bash">MSG:[08:16:19 2.2.2018] chd:init /test/f6/t1
+LOG:[08:16:19 2.2.2018]  active: /test/f6/t1
+LOG:[08:16:19 2.2.2018]  active: /test/f6
+LOG:[08:16:19 2.2.2018]  active: /test
+LOG:[08:16:19 2.2.2018]  active: /
+...
+MSG:[08:16:29 2.2.2018] --force=complete /test/f6/t1  :wangdp
+LOG:[08:16:29 2.2.2018]  complete: /test/f6/t1
+LOG:[08:16:29 2.2.2018]  complete: /test/f6
+LOG:[08:16:29 2.2.2018]  queued: /test
+LOG:[08:16:29 2.2.2018]  queued: /
+...
+MSG:[08:16:36 2.2.2018] --zombie_get :wangdp
+MSG:[08:16:58 2.2.2018] --zombie_get :wangdp
+</code></pre>
+
+<ol>
+<li>在 ecflow_ui 中查看 zombie 对话框（选择 host 节点，选择 zombie 标签）。</li>
+</ol>
+
+<p><img src="asset/zombie_view.png" alt="" /></p>
+
+<ol>
+<li><p>试验不同的 zombie 处理方法（下面仅是展示不同的处理方法）</p>
+
+<ul>
+<li>Terminate</li>
+</ul>
+
+<pre><code>$ps aux | grep t1
+windroc   85467  0.0  0.0  11264  2836 pts/2    S    00:23   0:00 /bin/ksh /home/windroc/course/test/f1/t1.job4
+</code></pre>
+
+<p>Terminate 日志</p>
+
+<pre><code>MSG:[08:24:58 22.2.2016] --zombie_fail=/test/f1/t1    :windroc
+</code></pre>
+
+<p>Terminate 后找不到该进程</p>
+
+<ul>
+<li>Rescue</li>
+</ul>
+
+<pre><code>windroc   85569  0.0  0.0   4472   920 pts/2    S    00:28   0:00 sh -c /home/windroc/course/test/f1/t1.job6 1&gt; /home/windroc/course/test/f1/t1.6 2&gt;&amp;1
+windroc   85570  0.0  0.0  11264  2864 pts/2    S    00:28   0:00 /bin/ksh /home/windroc/course/test/f1/t1.job6
+windroc   85586  0.0  0.0  13688  2192 pts/2    R+   00:28   0:00 grep --color=auto t1
+</code></pre>
+
+<p>日志</p>
+
+<pre><code>MSG:[08:29:22 22.2.2016] --zombie_adopt=/test/f1/t1    :windroc
+</code></pre></li>
+</ol>
+
+
+
+
+
+<footer class=" footline" >
+	
+</footer>
+
+        
+        </div> 
+        
+
+      </div>
+
+    <div id="navigation">
+        
+        
+        
+        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+            
+        
+        
+        
+
+
+	 
+	 
+		
+			<a class="nav nav-prev" href="https://perillaroc.github.io/ecflow-tutorial-cn/chap04/python/object-oriented-suites/" title="面向对象suite"> <i class="fa fa-chevron-left"></i></a>
+		
+		
+			<a class="nav nav-next" href="https://perillaroc.github.io/ecflow-tutorial-cn/chap05/" title="5. 练习" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+		
+	
+    </div>
+
+    </section>
+    
+    <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+      <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+    </div>
+    <script src="https://perillaroc.github.io/ecflow-tutorial-cn/js/clipboard.min.js?1554043307"></script>
+    <script src="https://perillaroc.github.io/ecflow-tutorial-cn/js/perfect-scrollbar.min.js?1554043307"></script>
+    <script src="https://perillaroc.github.io/ecflow-tutorial-cn/js/perfect-scrollbar.jquery.min.js?1554043307"></script>
+    <script src="https://perillaroc.github.io/ecflow-tutorial-cn/js/jquery.sticky.js?1554043307"></script>
+    <script src="https://perillaroc.github.io/ecflow-tutorial-cn/js/featherlight.min.js?1554043307"></script>
+    <script src="https://perillaroc.github.io/ecflow-tutorial-cn/js/html5shiv-printshiv.min.js?1554043307"></script>
+    <script src="https://perillaroc.github.io/ecflow-tutorial-cn/js/highlight.pack.js?1554043307"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script src="https://perillaroc.github.io/ecflow-tutorial-cn/js/modernizr.custom.71422.js?1554043307"></script>
+    <script src="https://perillaroc.github.io/ecflow-tutorial-cn/js/learn.js?1554043307"></script>
+    <script src="https://perillaroc.github.io/ecflow-tutorial-cn/js/hugo-learn.js?1554043307"></script>
+
+    <link href="https://perillaroc.github.io/ecflow-tutorial-cn/mermaid/mermaid.css?1554043307" type="text/css" rel="stylesheet" />
+    <script src="https://perillaroc.github.io/ecflow-tutorial-cn/mermaid/mermaid.js?1554043307"></script>
+    <script>
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+    
+
+  </body>
+</html>
