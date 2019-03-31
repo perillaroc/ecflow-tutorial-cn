@@ -18,7 +18,7 @@ weight: 9
 - 在 ecflow_ui 中选择 "Tools Menu: Preferences"
 - 选择 Menus 并将 "menu mode" 修改为 "Administrator"
 
-![](./assert/ecflowui_menu_mode.png)
+![](asset/ecflowui_menu_mode.png)
 
 从 Servers 菜单的 All servers... 中选择要显示的服务，将在主窗体中显示服务器信息：
 
