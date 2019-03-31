@@ -1,0 +1,7 @@
+baseURL: "https://perillaroc.github.io/ecflow-tutorial-cn/"
+canonifyURLs: true
+languageCode: "zh-cn"
+title: "ecFlow教程中文版"
+theme: "hugo-theme-learn"
+params:
+  ordersectionsby: title

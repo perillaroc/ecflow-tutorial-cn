@@ -1,3 +1,6 @@
 _book
 .idea
 .DS_Store
+
+.vsccode
+public
