@@ -4,4 +4,4 @@ languageCode: "zh-cn"
 title: "ecFlow教程中文版"
 theme: "hugo-theme-learn"
 params:
-  ordersectionsby: title
+  ordersectionsby: weight
