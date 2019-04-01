@@ -3,5 +3,6 @@ canonifyURLs: true
 languageCode: "zh-cn"
 title: "ecFlow教程中文版"
 theme: "hugo-theme-learn"
+googleAnalytics: UA-137359293-2
 params:
   ordersectionsby: weight
